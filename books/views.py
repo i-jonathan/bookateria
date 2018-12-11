@@ -20,10 +20,10 @@ def add(request):
                 return render(request, 'books/addbook.html', {'error': 'Upload a Valid PDF file'})
             if request.FILES['image'].name.endswith('.jpg') or request.FILES['image'].name.endswith('.png'):
                 book.image = request.FILES['image']
+                book.save()
+                return render(request, 'books/addbook.html', {'error': 'Saved'})
             else:
                 return render(request, 'books/addbook.html', {'error': 'Upload an Image with .png or .jpg'})
-            book.save()
-            return redirect(request, 'books/addbook.html')
         else:
             return render(request, 'books/addbook.html', {'error': 'All fields are Required!'})
     else:

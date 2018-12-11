@@ -5,7 +5,7 @@
 {{ error }}
 <br><br>
 {% endif %}
-<form method="POST" enctype="multipart/form-data" action="{% url 'add' %}">
+<form method="POST" enctype="multipart/form-data" action="{% url 'addbook' %}">
   {% csrf_token %}
   <div class="form-group">
     <h2>Add a Book Here</h2>
