@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'books.apps.BooksConfig',
-    'account.apps.AccountConfig',
+    'accounts.apps.AccountConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'oceanofpdf.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'pdfdb',
+        'NAME': 'updfdb',
         'USER': 'postgres',
         'PASSWORD': 'Django1234',
         'HOST': '127.0.0.1',

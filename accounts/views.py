@@ -12,11 +12,11 @@ def login(request):
                 auth.login(request, user)
                 return redirect('home')
             else:
-                return render(request, 'account/login.html', {'error': 'Username or password is incorrect'})
+                return render(request, 'accounts/login.html', {'error': 'Username or password is incorrect'})
         else:
-            return render(request, 'account/login.html', {'error': 'All fields are required'})
+            return render(request, 'accounts/login.html', {'error': 'All fields are required'})
     else:
-        return render(request, 'account/login.html')
+        return render(request, 'accounts/login.html')
 
 # Create your views here.
 def signup(request):
@@ -26,19 +26,19 @@ def signup(request):
             if request.POST['passwords'] == request.POST['passwords1']:
                 if passlen > 8:
                     try:
-                        return render(request, 'account/signup.html', {'error': 'Username has already been taken'})
+                        return render(request, 'accounts/signup.html', {'error': 'Username has already been taken'})
                     except User.DoesNotExist:
                         user = User.objects.create_user(request.POST['usernames'], password=request.POST['passwords'])
                         auth.login(request, user)
                         return redirect('home')
                 else:
-                    return render(request, 'account/signup.html', {'error': 'Password must be over 8 characters!'})
+                    return render(request, 'accounts/signup.html', {'error': 'Password must be over 8 characters!'})
             else:
-                return render(request, 'account/signup.html', {'error': 'Passwords Must Match!'})
+                return render(request, 'accounts/signup.html', {'error': 'Passwords Must Match!'})
         else:
-            return render(request, 'account/signup.html', {'error': 'All fields are required'})
+            return render(request, 'accounts/signup.html', {'error': 'All fields are required'})
     else:
-        return render(request, 'account/signup.html')
+        return render(request, 'accounts/signup.html')
 
 
 def logout(request):

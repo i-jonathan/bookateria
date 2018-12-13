@@ -1,8 +1,26 @@
 {% extends 'base.html' %}
-
+{% load staticfiles %}
 {% block content %}
-
-{% for book in booklist %}
-{% endfor %}
-
+    {% for book in books.all %}
+        <table class="table table-bordered mt-5">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Book Title - Author</th>
+                <th scope="col" class="text-center">Upload Date</th>
+                <th scope="col" class="text-center">Uploader</th>
+                <th scope="col" class="text-center">Number of Downloads</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th scope="row" class="text-center"><img src="{% static 'fav.png' %}" width=20></th>
+                <td>{{ book.title }} - {{ book.author }}</td>
+                <td class="text-center">{{ book.date }}</td>
+                <td class="text-center">{{ book.uploader }}</td>
+                <td class="text-center">{{ book.downloads }}</td>
+            </tr>
+            </tbody>
+        </table>
+    {% endfor %}
 {% endblock %}
