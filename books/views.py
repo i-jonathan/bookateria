@@ -1,13 +1,19 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Books
+from django.core.paginator import Paginator
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
 def home(request):
-    book = Books.objects
+    book_list = Books.objects.all()
+    paginator = Paginator(book_list, 20)  # Show 25 contacts per page
+    page = request.GET.get('page')
+    book = paginator.get_page(page)
     return render(request, 'books/home.html', {'books': book})
+
+
 @login_required
 def add(request):
     if request.method == 'POST':

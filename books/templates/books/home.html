@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% block content %}
-    {% for book in books.all %}
-        <table class="table table-bordered mt-5">
-            <thead class="thead-light">
-            <tr>
-                <th scope="col"></th>
-                <th scope="col">Book Title - Author</th>
-                <th scope="col" class="text-center">Upload Date</th>
-                <th scope="col" class="text-center">Uploader</th>
-                <th scope="col" class="text-center">Number of Downloads</th>
-            </tr>
-            </thead>
+    <table class="table table-bordered mt-5">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">Book Title - Author</th>
+            <th scope="col" class="text-center">Upload Date</th>
+            <th scope="col" class="text-center">Uploader</th>
+            <th scope="col" class="text-center">Number of Downloads</th>
+        </tr>
+        </thead>
+        {% for book in books %}
             <tbody>
             <tr>
                 <th scope="row" class="text-center"><img src="{% static 'fav.png' %}" width=20></th>
@@ -21,6 +21,24 @@
                 <td class="text-center">{{ book.downloads }}</td>
             </tr>
             </tbody>
-        </table>
-    {% endfor %}
+        {% endfor %}
+    </table>
+
+    <div class="pagination">
+    <span class="step-links">
+        {% if books.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ books.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ books.number }} of {{ books.paginator.num_pages }}.
+        </span>
+
+        {% if books.has_next %}
+            <a href="?page={{ books.next_page_number }}">next</a>
+            <a href="?page={{ books.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+    </div>
 {% endblock %}
