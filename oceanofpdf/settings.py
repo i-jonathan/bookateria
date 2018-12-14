@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'oceanofpdf.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'updfdb',
+        'NAME': 'postgres://dkcnllwjotlrtv:4d89611af78f4e2bb0d023a09649c15a2f3cf22809c87c929b496d53e95eb890@ec2-54-163-245-64.compute-1.amazonaws.com:5432/d8v5vq4gjnppeo',
         'USER': 'postgres',
         'PASSWORD': 'Django1234',
         'HOST': '127.0.0.1',
