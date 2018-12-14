@@ -14,7 +14,7 @@
             <a href="javascript:{document.getElementById('add').submit()}"><button class="btn btn-primary btn-lg btn-block"><span class="oi oi-caret-top"></span> Download </button></a>
         </div>
     </div>
-    <form id="add" action="{% url 'download' book.id %}" method="POST">
+    <form id="add" action="{% url 'download' book.id %}" target="_blank" method="POST">
         {% csrf_token %}
         <input type="hidden">
     </form>
