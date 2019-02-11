@@ -32,7 +32,7 @@ def add(request):
             if request.FILES['image'].name.endswith('.jpg') or request.FILES['image'].name.endswith('.png'):
                 book.image = request.FILES['image']
                 book.save()
-                return render(request, 'books/addbook.html', {'error': 'Saved'})
+                return redirect('home')
             else:
                 return render(request, 'books/addbook.html', {'error': 'Upload an Image with .png or .jpg'})
         else:
@@ -43,7 +43,7 @@ def add(request):
 
 def detail(request, books_id):
     book = get_object_or_404(Books, pk=books_id)
-    return render(request, 'books/detail.html', {'book':book})
+    return render(request, 'books/detail.html', {'book': book})
 
 @login_required
 def download(request, books_id):
@@ -52,3 +52,6 @@ def download(request, books_id):
         book.downloads += 1
         book.save()
         return redirect(book.pdf.url)
+
+
+
