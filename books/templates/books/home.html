@@ -1,6 +1,15 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% block content %}
+
+    <div class="row">
+    <div class="container mt-5 text-center">
+        <h2>
+            <span style="font-weight: 500;">Welcome to my MiniPDF site.</span>
+        </h2>
+        <h5>Find and Share books you find useful. We appreciate 😉</h5>
+    </div>
+    </div>
     <table class="table table-bordered mt-5">
         <thead class="thead-light">
         <tr>
@@ -24,7 +33,7 @@
         {% endfor %}
     </table>
 
-    <div class="pagination">
+    <div class="pagination ">
     <span class="step-links">
         {% if books.has_previous %}
             <a href="?page=1">&laquo; first</a>

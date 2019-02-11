@@ -22,7 +22,10 @@ SECRET_KEY = 'mau=x17nzh7(nbc^6mr=04s((0c%^^@143u^o%d7rg$2m3qj92'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['jayspots.com']
+ALLOWED_HOSTS = [
+    'jayspots.com',
+    '127.0.0.1'
+]
 
 
 # Application definition
@@ -72,17 +75,23 @@ WSGI_APPLICATION = 'oceanofpdf.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'urban_prod',
+#         'USER': 'u_urban',
+#         'PASSWORD': 'Test-Passqwerty',
+#         'HOST': 'localhost',
+#         'PORT': '',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'urban_prod',
-        'USER': 'u_urban',
-        'PASSWORD': 'Test-Passqwerty',
-        'HOST': 'localhost',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators

@@ -25,10 +25,10 @@ def add(request):
             book.upload_date = timezone.datetime.now()
             book.uploader = request.user
 
-            if request.FILES['pdf'].name.endswith('.pdf'):
+            if request.FILES['pdf'].name.endswith('.pdf') or request.FILES['pdf'].name.endswith('.epub'):
                 book.pdf = request.FILES['pdf']
             else:
-                return render(request, 'books/addbook.html', {'error': 'Upload a Valid PDF file'})
+                return render(request, 'books/addbook.html', {'error': 'Please Upload a supported book format. EPUB or PDF'})
             if request.FILES['image'].name.endswith('.jpg') or request.FILES['image'].name.endswith('.png'):
                 book.image = request.FILES['image']
                 book.save()
