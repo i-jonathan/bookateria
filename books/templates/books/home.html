@@ -10,6 +10,7 @@
         <h5>Find and Share books you find useful. We appreciate 😉</h5>
     </div>
     </div>
+    {% if books %}
     <table class="table table-bordered mt-5">
         <thead class="thead-light">
         <tr>
@@ -33,6 +34,7 @@
         {% endfor %}
     </table>
 
+
     <div class="pagination ">
     <span class="step-links">
         {% if books.has_previous %}
@@ -48,6 +50,13 @@
             <a href="?page={{ books.next_page_number }}">next</a>
             <a href="?page={{ books.paginator.num_pages }}">last &raquo;</a>
         {% endif %}
+    {% else %}
+    <div class="row">
+    <div class="container text-center">
+        <h5>Be the First to add a Book!😃🤗</h5>
+    </div>
+    </div>
+    {% endif %}
     </span>
     </div>
 {% endblock %}
