@@ -1,20 +1,23 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import auth
-from django.contrib.auth.decorators import login_required
+from .forms import SignUpForm
 
 # Create your views here.
 def login(request):
     if request.method == 'POST':
-        if request.POST['username'] and request.POST['password']:
-            user = auth.authenticate(username=request.POST['username'], password=request.POST['password'])
-            if user is not None:
-                auth.login(request, user)
-                return redirect('home')
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            if request.POST['username'] and request.POST['password']:
+                user = auth.authenticate(username=request.POST['username'], password=request.POST['password'])
+                if user is not None:
+                    auth.login(request, user)
+                    return redirect('home')
+                else:
+                    return render(request, 'accounts/login.html', {'error': 'Username or password is incorrect'})
             else:
-                return render(request, 'accounts/login.html', {'error': 'Username or password is incorrect'})
-        else:
-            return render(request, 'accounts/login.html', {'error': 'All fields are required'})
+                return render(request, 'accounts/login.html', {'error': 'All fields are required'})
     else:
         return render(request, 'accounts/login.html')
 
