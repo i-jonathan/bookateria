@@ -3,6 +3,7 @@
 ### Django ###
 *.log
 *.pot
+*.env
 *.pyc
 __pycache__/
 local_settings.py
