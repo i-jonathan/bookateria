@@ -6,3 +6,6 @@ psycopg2-binary
 dj-database-url
 postgres
 pytz
+boto3
+django-storages
+python-decouple
