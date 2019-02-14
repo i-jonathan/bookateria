@@ -1,7 +1,8 @@
-Django==2.1.5
+Django==2.1.7
 Pillow
-Gunicorn
+gunicorn
 whitenoise
 psycopg2-binary
-python-decouple
 dj-database-url
+postgres
+pytz

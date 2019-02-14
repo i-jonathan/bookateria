@@ -23,8 +23,9 @@ SECRET_KEY = 'mau=x17nzh7(nbc^6mr=04s((0c%^^@143u^o%d7rg$2m3qj92'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'jayspots.com',
-    '127.0.0.1'
+    '0.0.0.0',
+    'localhost',
+    'minipdf.herokuapp.com'
 ]
 
 
