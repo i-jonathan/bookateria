@@ -31,7 +31,8 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = [
     'jayspots.com',
-    '127.0.0.1'
+    '127.0.0.1',
+    'minipdf.herokuapp.com'
 ]
 
 
