@@ -1,3 +1,5 @@
-gunicorn
-psycopg2-binary
+Django==2.1.5
 Pillow
+Gunicorn
+whitenoise
+psycopg2-binary
