@@ -9,3 +9,6 @@ pytz
 boto3
 django-storages
 python-decouple
+s3transfer
+botocore
+jmespath
