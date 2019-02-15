@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'storages',
 ]
@@ -167,16 +166,17 @@ STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 DEFAULT_FILE_STORAGE = 'oceanofpdf.storage_backends.MediaStorage'
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-EMAIL_HOST = 'smtp.gmail.com'
-
-EMAIL_PORT = '587'
-
-EMAIL_HOST_USER = 'farinloyejonathan@gmail.com'
-
-EMAIL_HOST_PASSWORD = 'Sink sinking Kraken!'
-
-EMAIL_USE_TLS = True
-
-DEFAULT_FROM_EMAIL = 'MiniPDF Drive<hello@jayspots.com>'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#
+# EMAIL_HOST = 'smtp.gmail.com'
+#
+# EMAIL_PORT = '587'
+#
+# EMAIL_HOST_USER = 'farinloyejonathan@gmail.com'
+#
+# EMAIL_HOST_PASSWORD = 'Sink sinking Kraken!'
+#
+# EMAIL_USE_TLS = True
+#
+# DEFAULT_FROM_EMAIL = 'MiniPDF Drive<hello@jayspots.com>'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
