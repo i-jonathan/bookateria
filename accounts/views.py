@@ -1,26 +1,19 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import auth
-from .forms import SignUpForm
 
 # Create your views here.
 def login(request):
     if request.method == 'POST':
-        form = SignUpForm()
-        if form.is_valid():
-            form.first_name = request.POST['first_name']
-            form.last_name = request.POST['last_name']
-            form.email = request.POST['email']
-            form.save()
-            if request.POST['username'] and request.POST['password']:
-                user = auth.authenticate(username=request.POST['username'], password=request.POST['password'])
-                if user is not None:
-                    auth.login(request, user)
-                    return redirect('home')
-                else:
-                    return render(request, 'accounts/login.html', {'error': 'Username or password is incorrect'})
+        if request.POST['username'] and request.POST['password']:
+            user = auth.authenticate(username=request.POST['username'], password=request.POST['password'])
+            if user is not None:
+                auth.login(request, user)
+                return redirect('home')
             else:
-                return render(request, 'accounts/login.html', {'error': 'All fields are required'})
+                return render(request, 'accounts/login.html', {'error': 'Username or password is incorrect'})
+        else:
+            return render(request, 'accounts/login.html', {'error': 'All fields are required'})
     else:
         return render(request, 'accounts/login.html')
 
@@ -36,6 +29,10 @@ def signup(request):
                         return render(request, 'accounts/signup.html', {'error': 'Username has already been taken'})
                     except User.DoesNotExist:
                         user = User.objects.create_user(request.POST['usernames'], password=request.POST['passwords'])
+                        user.email = request.POST['email']
+                        user.first_name = request.POST['first_name']
+                        user.last_name = request.POST['last_name']
+                        user.save()
                         auth.login(request, user)
                         return redirect('home')
                 else:
