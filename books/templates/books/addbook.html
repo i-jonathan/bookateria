@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% if error %}
-        {{ error }}
-        <br><br>
-    {% endif %}
     <form method="POST" enctype="multipart/form-data" action="{% url 'addbook' %}">
         {% csrf_token %}
         <div class="form-group">
             <h2>Add a Book Here</h2>
+            {% if error %}
+                {{ error }}
+                <br><br>
+            {% endif %}
             <input name="title" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Book Title">
         </div>
         <div class="form-group">

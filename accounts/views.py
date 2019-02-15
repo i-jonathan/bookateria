@@ -50,3 +50,11 @@ def logout(request):
     if request.method == 'POST':
         auth.logout(request)
         return redirect('home')
+
+
+def rPassword(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+    else:
+        return render(request, 'accounts/reset-password.html')
+
