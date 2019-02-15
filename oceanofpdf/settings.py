@@ -179,4 +179,4 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 EMAIL_USE_TLS = True
 
-DEFAULT_FROM_EMAIL='MiniPDF Drive'
+DEFAULT_FROM_EMAIL = 'MiniPDF Drive<hello@jayspots.com>'
