@@ -41,10 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-
     'django.contrib.staticfiles',
     'whitenoise.runserver_nostatic',
-    'storages',
+    # 'storages',
 ]
 
 MIDDLEWARE = [
@@ -142,44 +141,45 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'oceanofpdf/static/')
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = '/static/'
 
-STATIC_URL = '/static/'
+STATIC_URL = 'http://www.jayspots.com'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = '/media/'
+# os.path.join(BASE_DIR, 'media')
+
+MEDIA_URL = 'http://www.jayspots.com'
+
+# AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
 #
-MEDIA_URL = '/media/'
-
-AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
-
-AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-
-AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
-}
-
-AWS_LOCATION = 'static'
-
-STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
-
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
-DEFAULT_FILE_STORAGE = 'oceanofpdf.storage_backends.MediaStorage'
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-EMAIL_HOST = config('EMAIL_HOST')
-
-EMAIL_PORT = config('EMAIL_PORT')
-
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-
-EMAIL_USE_SSL = False
-
-EMAIL_USE_TLS = False
+# AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+#
+# AWS_S3_OBJECT_PARAMETERS = {
+#     'CacheControl': 'max-age=86400',
+# }
+#
+# AWS_LOCATION = 'static'
+#
+# STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+#
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+#
+# DEFAULT_FILE_STORAGE = 'oceanofpdf.storage_backends.MediaStorage'
+#
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#
+# EMAIL_HOST = config('EMAIL_HOST')
+#
+# EMAIL_PORT = config('EMAIL_PORT')
+#
+# EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+#
+# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+#
+# EMAIL_USE_SSL = False
+#
+# EMAIL_USE_TLS = False
 
 # DEFAULT_FROM_EMAIL = 'MiniPDF Drive<hello@jayspots.com>'
