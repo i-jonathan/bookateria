@@ -7,8 +7,4 @@ psycopg2-binary
 dj-database-url
 postgres
 pytz
-boto3
 python-decouple
-s3transfer
-botocore
-jmespath

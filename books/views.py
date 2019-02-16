@@ -17,7 +17,7 @@ def home(request):
 @login_required
 def add(request):
     if request.method == 'POST':
-        if request.POST['title'] and request.POST['author'] and  request.POST['description'] and  request.FILES['pdf']:
+        if request.POST['title'] and request.POST['author'] and request.POST['description'] and request.FILES['pdf']:
             book = Books()
             book.title = request.POST['title']
             book.author = request.POST['author']

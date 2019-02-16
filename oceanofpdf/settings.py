@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 import dj_database_url
 from decouple import config
+from storages.backends import ftp
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -22,12 +23,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
-    '0.0.0.0',
-    'localhost',
-    'minipdf.herokuapp.com'
+
 ]
 
 
@@ -43,7 +42,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'whitenoise.runserver_nostatic',
-    # 'storages',
 ]
 
 MIDDLEWARE = [
@@ -81,26 +79,26 @@ WSGI_APPLICATION = 'oceanofpdf.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 # For online usage
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('DB_NAME', ''),
-        'USER': os.environ.get('DB_USER', ''),
-        'PASSWORD': os.environ.get('DB_PASS', ''),
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
-
-db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
-# offline work
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': os.environ.get('DB_NAME', ''),
+#         'USER': os.environ.get('DB_USER', ''),
+#         'PASSWORD': os.environ.get('DB_PASS', ''),
+#         'HOST': 'localhost',
+#         'PORT': '5432',
 #     }
 # }
+#
+# db_from_env = dj_database_url.config()
+# DATABASES['default'].update(db_from_env)
+# offline work
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -141,16 +139,18 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'oceanofpdf/static/')
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = 'static/'
 
-STATIC_URL = '/static/'
+STATIC_URL = 'https://jayspots.com/static/'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-MEDIA_ROOT = '/media/'
+MEDIA_ROOT = '/home2/jayspots/public_html/media/'
 # os.path.join(BASE_DIR, 'media')
 
-MEDIA_URL = '/media/'
+MEDIA_URL = 'https://media.jayspots.com/'
+
+
 
 # AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
 #
@@ -166,7 +166,7 @@ MEDIA_URL = '/media/'
 #
 # STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 #
-DEFAULT_FILE_STORAGE = 'oceanofpdf.storage_backends.MediaStorage'
+# DEFAULT_FILE_STORAGE = 'oceanofpdf.storage_backends.MediaStorage'
 #
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 #
