@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.messages',Page {{ books.number }} of {{ books.paginator.num_pages }}.
+    'django.contrib.messages',
 
     'django.contrib.staticfiles',
     'whitenoise.runserver_nostatic',
