@@ -141,16 +141,16 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'oceanofpdf/static/')
 ]
 
-STATIC_ROOT = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-STATIC_URL = 'http://www.jayspots.com'
+STATIC_URL = '/static/'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_ROOT = '/media/'
 # os.path.join(BASE_DIR, 'media')
 
-MEDIA_URL = 'http://www.media.jayspots.com'
+MEDIA_URL = '/media/'
 
 # AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
 #
