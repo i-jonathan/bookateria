@@ -45,6 +45,7 @@ def detail(request, books_id):
     book = get_object_or_404(Books, pk=books_id)
     return render(request, 'books/detail.html', {'book': book})
 
+
 @login_required
 def download(request, books_id):
     if request.method == 'POST':
@@ -52,6 +53,12 @@ def download(request, books_id):
         book.downloads += 1
         book.save()
         return redirect(book.pdf.url)
+
+
+def search(request):
+    if request.method == 'POST':
+        book = Books.objects.all().filter(title__icontains=request.POST['query'])
+        return render(request, 'books/search-result.html', {'books': book})
 
 
 
