@@ -30,26 +30,30 @@
                 </tbody>
             {% endfor %}
         </table>
+        <div class="pagination ">
+            <span class="step-links">
+                {% if books.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ books.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ books.number }} of {{ books.paginator.num_pages }}.
+                </span>
+
+                {% if books.has_next %}
+                    <a href="?page={{ books.next_page_number }}">next</a>
+                    <a href="?page={{ books.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
     {% else %}
-        <p>Book not Found</p>
+        <div class="container">
+            <h5>Book not Found</h5>
+            <h5>Let us say you later find it, Kindly add it <strong><a href="{% url 'addbook' %}">here</a></strong></h5>
+            <h6>You could also make a request by tweeting at me
+                <a href="http://twitter.com/home?status=Book Title: %0D%0ABook Author: %0D%0AFor minipdf.herokuapp.com @I_jonathan_">right here</a></h6>
+        </div>
+
     {% endif %}
-
-
-    <div class="pagination ">
-    <span class="step-links">
-        {% if books.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ books.previous_page_number }}">previous</a>
-        {% endif %}
-
-        <span class="current">
-            Page {{ books.number }} of {{ books.paginator.num_pages }}.
-        </span>
-
-        {% if books.has_next %}
-            <a href="?page={{ books.next_page_number }}">next</a>
-            <a href="?page={{ books.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-    </span>
-    </div>
 {% endblock %}
