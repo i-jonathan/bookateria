@@ -1,7 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from storages.backends import ftp
+fs = ftp.FTPStorage
 # Create your models here.
+
 
 class Books(models.Model):
     title = models.CharField(max_length=30)
@@ -9,8 +11,8 @@ class Books(models.Model):
     description = models.TextField()
     downloads = models.IntegerField(default=0)
     upload_date = models.DateTimeField()
-    image = models.ImageField(upload_to='images/')
-    pdf = models.FileField(upload_to='file/')
+    image = models.ImageField(upload_to='images/', storage=fs)
+    pdf = models.FileField(upload_to='file/', storage=fs)
     uploader = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def summary(self):
@@ -22,3 +24,7 @@ class Books(models.Model):
 
     def __str__(self):
         return self.title
+
+
+
+

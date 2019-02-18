@@ -10,7 +10,6 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 import dj_database_url
 from decouple import config
-from storages.backends import ftp
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,12 +22,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
+# TODO change before pushing
 
 ALLOWED_HOSTS = [
-    '0.0.0.0',
-    'localhost',
-    'minipdf.herokuapp.com'
+
 ]
 
 # Application definition
@@ -53,7 +51,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-   # 'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'oceanofpdf.urls'
@@ -94,12 +91,12 @@ DATABASES = {
 db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
 # offline work
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -144,43 +141,11 @@ STATIC_ROOT = 'static/'
 
 STATIC_URL = 'https://jayspots.com/static/'
 
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-MEDIA_ROOT = '/home2/jayspots/public_html/media/'
+MEDIA_ROOT = '/media/'
 # os.path.join(BASE_DIR, 'media')
 
-MEDIA_URL = 'https://media.jayspots.com/'
+MEDIA_URL = 'ftp://'+config('FTP_USER')+':'+config('FTP_PASSWORD')+'@media.jayspots.com/media/'
 
+DEFAULT_FILE_STORAGE = 'storages.backends.ftp.FTPStorage'
 
-
-# AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
-#
-# AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-#
-# AWS_S3_OBJECT_PARAMETERS = {
-#     'CacheControl': 'max-age=86400',
-# }
-#
-# AWS_LOCATION = 'static'
-#
-# STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
-#
-# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-#
-# DEFAULT_FILE_STORAGE = 'oceanofpdf.storage_backends.MediaStorage'
-#
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-#
-# EMAIL_HOST = config('EMAIL_HOST')
-#
-# EMAIL_PORT = config('EMAIL_PORT')
-#
-# EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-#
-# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-#
-# EMAIL_USE_SSL = False
-#
-# EMAIL_USE_TLS = False
-
-# DEFAULT_FROM_EMAIL = 'MiniPDF Drive<hello@jayspots.com>'
+FTP_STORAGE_LOCATION = 'ftp://'+config('FTP_USER')+':'+config('FTP_PASSWORD')+'@media.jayspots.com/media/'
