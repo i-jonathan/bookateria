@@ -9,7 +9,7 @@ class Books(models.Model):
     description = models.TextField()
     downloads = models.IntegerField(default=0)
     upload_date = models.DateTimeField()
-    image = models.ImageField(upload_to='images/')
+    image = models.ImageField(upload_to='images/', default='books-default.png')
     pdf = models.FileField(upload_to='file/')
     uploader = models.ForeignKey(User, on_delete=models.CASCADE)
 

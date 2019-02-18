@@ -24,17 +24,9 @@ def add(request):
             book.description = request.POST['description']
             book.upload_date = timezone.datetime.now()
             book.uploader = request.user
-
-            if request.FILES['pdf'].name.endswith('.pdf') or request.FILES['pdf'].name.endswith('.epub'):
-                book.pdf = request.FILES['pdf']
-            else:
-                return render(request, 'books/addbook.html', {'error': 'Please Upload a supported book format. EPUB or PDF'})
-            if request.FILES['image'].name.endswith('.jpg') or request.FILES['image'].name.endswith('.png'):
-                book.image = request.FILES['image']
-                book.save()
-                return redirect('home')
-            else:
-                return render(request, 'books/addbook.html', {'error': 'Upload an Image with .png or .jpg'})
+            book.pdf = request.FILES['pdf']
+            book.image = request.FILES['image']
+            book.save()
         else:
             return render(request, 'books/addbook.html', {'error': 'All fields are Required!'})
     else:
