@@ -23,11 +23,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     'minipdf.herokuapp.com',
     '0.0.0.0',
+    '127.0.0.1'
 ]
 
 # Application definition
@@ -152,5 +153,5 @@ DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 GS_BUCKET_NAME = 'paperwork-uploads'
 
 GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-    'oceanofpdf/inaccess/paperwork-de0aa9259874.json'
+    config('FOO')
 )
