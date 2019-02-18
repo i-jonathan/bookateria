@@ -153,5 +153,5 @@ DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 GS_BUCKET_NAME = 'paperwork-uploads'
 
 GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-    config('FOO')
+    'oceanofpdf/inaccess/paperwork-de0aa9259874.json'
 )
