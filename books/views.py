@@ -27,6 +27,7 @@ def add(request):
             book.pdf = request.FILES['pdf']
             book.image = request.FILES['image']
             book.save()
+            return redirect('home')
         else:
             return render(request, 'books/addbook.html', {'error': 'All fields are Required!'})
     else:
