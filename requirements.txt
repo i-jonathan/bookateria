@@ -8,4 +8,4 @@ dj-database-url
 postgres
 pytz
 python-decouple
-django-storages[google]
+google-cloud-storage
