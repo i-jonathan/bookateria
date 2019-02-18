@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 import dj_database_url
 from decouple import config
+from google.oauth2 import service_account
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,8 +27,8 @@ DEBUG = True
 # TODO change before pushing
 
 ALLOWED_HOSTS = [
-    'minipdf.herokuapp.com',
-    '0.0.0.0',
+    # 'minipdf.herokuapp.com',
+    # '0.0.0.0',
 ]
 
 # Application definition
@@ -78,26 +79,26 @@ WSGI_APPLICATION = 'oceanofpdf.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 # For online usage
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('DB_NAME', ''),
-        'USER': os.environ.get('DB_USER', ''),
-        'PASSWORD': os.environ.get('DB_PASS', ''),
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
-
-db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
-# offline work
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': os.environ.get('DB_NAME', ''),
+#         'USER': os.environ.get('DB_USER', ''),
+#         'PASSWORD': os.environ.get('DB_PASS', ''),
+#         'HOST': 'localhost',
+#         'PORT': '5432',
 #     }
 # }
+#
+# db_from_env = dj_database_url.config()
+# DATABASES['default'].update(db_from_env)
+# offline work
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -147,6 +148,10 @@ MEDIA_ROOT = '/media/'
 
 MEDIA_URL = 'ftp://'+config('FTP_USER')+':'+config('FTP_PASSWORD')+'@media.jayspots.com/media/'
 
-DEFAULT_FILE_STORAGE = 'storages.backends.ftp.FTPStorage'
+DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 
-FTP_STORAGE_LOCATION = 'ftp://'+config('FTP_USER')+':'+config('FTP_PASSWORD')+'@media.jayspots.com/media/'
+GS_BUCKET_NAME = 'paperwork-uploads'
+
+GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+    'oceanofpdf/inaccess/paperwork-de0aa9259874.json'
+)
