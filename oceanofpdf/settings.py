@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #'whitenoise.runserver_nostatic',
+    # 'whitenoise.runserver_nostatic',
 ]
 
 MIDDLEWARE = [
@@ -79,26 +79,26 @@ WSGI_APPLICATION = 'oceanofpdf.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 # For online usage
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('DB_NAME', ''),
-        'USER': os.environ.get('DB_USER', ''),
-        'PASSWORD': os.environ.get('DB_PASS', ''),
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
-
-db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
-# offline work
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': os.environ.get('DB_NAME', ''),
+#         'USER': os.environ.get('DB_USER', ''),
+#         'PASSWORD': os.environ.get('DB_PASS', ''),
+#         'HOST': 'localhost',
+#         'PORT': '5432',
 #     }
 # }
+#
+# db_from_env = dj_database_url.config()
+# DATABASES['default'].update(db_from_env)
+# offline work
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -143,17 +143,6 @@ STATIC_ROOT = 'static/'
 
 STATIC_URL = 'https://jayspots.com/static/'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
-GS_MEDIA_BUCKET_NAME = 'paperwork-uploads'
-#
-GS_PROJECT_ID = 'paperwork-232114'
-
-MEDIA_URL = 'https://storage.googleapis.com/{}/'.format(GS_MEDIA_BUCKET_NAME)
-
-# DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
-DEFAULT_FILE_STORAGE = 'config.storage_backends.GoogleCloudMediaStorage'
-
-GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-    'oceanofpdf/inaccess/paperwork-de0aa9259874.json'
-)
+MEDIA_URL = '/media/'
