@@ -28,8 +28,7 @@ def signup(request):
             if request.POST['passwords'] == request.POST['passwords1']:
                 if passlen > 8:
                     try:
-                        User.objects.get(username=request.POST['usernames'])
-                        User.objects.get(email=request.POST['email'])
+                        User.objects.get(username=request.POST['usernames']) or User.objects.get(email=request.POST['email'])
                         return render(request, 'accounts/signup.html', {'error': 'Username or Email already associated with an account'})
                     except User.DoesNotExist:
                         user = User.objects.create_user(request.POST['usernames'], password=request.POST['passwords'])

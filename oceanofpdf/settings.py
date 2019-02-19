@@ -147,10 +147,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 MEDIA_URL = '/media/'
 
-DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+AWS_ACCESS_KEY_ID = 'AKIAIEG7GRKABWHVJISQ'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'paperworks-uploads'
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 
-GS_BUCKET_NAME = 'paperwork-uploads'
-
-GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-    "oceanofpdf/inaccess/paperwork-de0aa9259874.json"
-)
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+DEFAULT_FILE_STORAGE = 'oceanofpdf.storage_backends.MediaStorage'
