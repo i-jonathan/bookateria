@@ -10,7 +10,6 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 import dj_database_url
 from decouple import config
-from google.oauth2 import service_account
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -42,7 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'storages',
 ]
 
 MIDDLEWARE = [
@@ -146,13 +144,3 @@ STATIC_URL = 'https://jayspots.com/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 MEDIA_URL = '/media/'
-
-AWS_ACCESS_KEY_ID = 'AKIAIEG7GRKABWHVJISQ'
-AWS_SECRET_ACCESS_KEY = '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'
-AWS_STORAGE_BUCKET_NAME = 'paperworks-uploads'
-AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
-
-AWS_S3_OBJECT_PARAMETERS = {
-    'CacheControl': 'max-age=86400',
-}
-DEFAULT_FILE_STORAGE = 'oceanofpdf.storage_backends.MediaStorage'

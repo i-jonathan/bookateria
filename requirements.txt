@@ -8,4 +8,3 @@ dj-database-url
 postgres
 pytz
 python-decouple
-boto3
