@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'whitenoise.runserver_nostatic',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -146,3 +146,11 @@ STATIC_URL = 'https://jayspots.com/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 MEDIA_URL = '/media/'
+
+DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+
+GS_BUCKET_NAME = 'paperwork-uploads'
+
+GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+    "oceanofpdf/inaccess/paperwork-de0aa9259874.json"
+)
