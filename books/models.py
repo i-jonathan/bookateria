@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 
 class Books(models.Model):
-    title = models.CharField(max_length=30)
+    title = models.CharField(max_length=60)
     author = models.CharField(max_length=30)
     description = models.TextField()
     downloads = models.IntegerField(default=0)
