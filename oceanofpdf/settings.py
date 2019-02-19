@@ -143,13 +143,16 @@ STATIC_ROOT = 'static/'
 
 STATIC_URL = 'https://jayspots.com/static/'
 
-#MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+GS_MEDIA_BUCKET_NAME = 'paperwork-uploads'
 #
-MEDIA_URL = '/media/'
+GS_PROJECT_ID = 'paperwork-232114'
 
-DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+MEDIA_URL = 'https://storage.googleapis.com/{}/'.format(GS_MEDIA_BUCKET_NAME)
 
-GS_BUCKET_NAME = 'paperwork-uploads'
+# DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+DEFAULT_FILE_STORAGE = 'config.storage_backends.GoogleCloudMediaStorage'
 
 GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
     'oceanofpdf/inaccess/paperwork-de0aa9259874.json'
