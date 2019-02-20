@@ -39,7 +39,6 @@ def detail(request, books_id):
     return render(request, 'books/detail.html', {'book': book})
 
 
-@login_required
 def download(request, books_id):
     if request.method == 'POST':
         book = get_object_or_404(Books, pk=books_id)
