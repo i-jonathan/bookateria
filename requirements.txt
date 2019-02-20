@@ -9,3 +9,4 @@ postgres
 pytz
 python-decouple
 google-cloud-storage
+dj_static
