@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.text import slugify
 # Create your models here.
 
 
@@ -12,7 +13,11 @@ class Books(models.Model):
     image = models.ImageField(upload_to='images/')
     pdf = models.FileField(upload_to='file/')
     uploader = models.ForeignKey(User, on_delete=models.CASCADE)
-    slug = models.SlugField(max_length=255)
+    slug = models.SlugField(unique=True, max_length=255)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(Books, self).save(*args, **kwargs)
 
     def summary(self):
         return self.description[:100]
