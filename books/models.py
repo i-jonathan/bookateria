@@ -12,6 +12,7 @@ class Books(models.Model):
     image = models.ImageField(upload_to='images/')
     pdf = models.FileField(upload_to='file/')
     uploader = models.ForeignKey(User, on_delete=models.CASCADE)
+    slug = models.SlugField(max_length=255)
 
     def summary(self):
         return self.description[:100]
