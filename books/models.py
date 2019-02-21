@@ -15,6 +15,7 @@ class Books(models.Model):
     uploader = models.ForeignKey(User, on_delete=models.CASCADE)
     slug = models.SlugField(unique=True, max_length=255)
 
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
         super(Books, self).save(*args, **kwargs)

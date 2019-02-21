@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def home(request):
-    book_list = Books.objects.all()
+    book_list = Books.objects.all().order_by('-upload_date')
     paginator = Paginator(book_list, 20)  # Show 25 contacts per page
     page = request.GET.get('page')
     book = paginator.get_page(page)
