@@ -11,7 +11,9 @@
             Uploaded by : {{ book.uploader }}
             <br><br>
             Uploaded on : {{ book.date }}
-            <a href="javascript:{document.getElementById('add').submit()}"><button class="btn btn-primary btn-lg btn-block"><span class="oi oi-caret-top"></span> Download </button></a>
+            <a href="javascript:{document.getElementById('add').submit()}">
+                <button class="btn btn-primary btn-block pt-3">
+                    <span class="oi oi-caret-top"></span> Download </button></a>
         </div>
     </div>
     <form id="add" action="{% url 'download' book.id %}" target="_blank" method="POST">

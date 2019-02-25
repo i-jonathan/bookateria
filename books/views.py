@@ -7,11 +7,15 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def home(request):
+    return render(request, 'books/home.html')
+
+
+def bookview(request):
     book_list = Books.objects.all().order_by('-upload_date')
-    paginator = Paginator(book_list, 20)  # Show 25 contacts per page
+    paginator = Paginator(book_list, 20)  # Show 20 books per page # TODO improve pagination
     page = request.GET.get('page')
     book = paginator.get_page(page)
-    return render(request, 'books/home.html', {'books': book})
+    return render(request, 'books/all.html', {'books': book})
 
 
 @login_required
