@@ -16,7 +16,7 @@ def bookview(request):
     page = request.GET.get('page')
     book = paginator.get_page(page)
     # size = Books.objects.all()
-    return render(request, 'books/all.html', {'books': book}, {'size': size})
+    return render(request, 'books/all.html', {'books': book})
 
 
 @login_required
