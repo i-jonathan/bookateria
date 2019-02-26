@@ -5,8 +5,8 @@ from django.utils.text import slugify
 
 
 class Books(models.Model):
-    title = models.CharField(max_length=60)
-    author = models.CharField(max_length=30)
+    title = models.CharField(max_length=255)
+    author = models.CharField(max_length=255)
     description = models.TextField()
     downloads = models.IntegerField(default=0)
     upload_date = models.DateTimeField()
