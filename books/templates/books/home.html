@@ -12,7 +12,16 @@
         <div class="container mt-3 text-center">
             <a href="{% url 'allbooks' %}" class="btn btn-outline-dark btn-lg" role="button" aria-pressed="true">
                 View All Books
-            </a>
+            </a>&nbsp;&nbsp;
+{#            {% if user.is_authenticated %}#}
+{#            <a href="{% url 'allbooks' %}" class="btn btn-outline-dark btn-lg" role="button" aria-pressed="true">#}
+{#                Submit a Book#}
+{#            </a>#}
+{#            {% else %}#}
+{#            <a href="{% url 'login' %}" class="btn btn-outline-dark btn-lg" role="button" aria-pressed="true">#}
+{#                Login#}
+{#            </a>#}
+{#            {% endif %}#}
         </div>
     </div>
 {% endblock %}

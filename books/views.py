@@ -15,7 +15,8 @@ def bookview(request):
     paginator = Paginator(book_list, 20)  # Show 20 books per page # TODO improve pagination
     page = request.GET.get('page')
     book = paginator.get_page(page)
-    return render(request, 'books/all.html', {'books': book})
+    # size = Books.objects.all()
+    return render(request, 'books/all.html', {'books': book}, {'size': size})
 
 
 @login_required
