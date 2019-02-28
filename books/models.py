@@ -10,11 +10,14 @@ class Books(models.Model):
     description = models.TextField()
     downloads = models.IntegerField(default=0)
     upload_date = models.DateTimeField()
+    size = models.IntegerField(default=0)
     image = models.ImageField(upload_to='images/')
     pdf = models.FileField(upload_to='file/')
     uploader = models.ForeignKey(User, on_delete=models.CASCADE)
     slug = models.SlugField(unique=True, max_length=255)
 
+    def megabytes(self):
+        return self.size/1048576
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)

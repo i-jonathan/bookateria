@@ -3,6 +3,7 @@ from .models import Books
 from django.core.paginator import Paginator
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+import os
 
 
 # Create your views here.
@@ -12,10 +13,9 @@ def home(request):
 
 def bookview(request):
     book_list = Books.objects.all().order_by('-upload_date')
-    paginator = Paginator(book_list, 20)  # Show 20 books per page # TODO improve pagination
+    paginator = Paginator(book_list, 20)  # Show 20 books per page TODO improve pagination
     page = request.GET.get('page')
     book = paginator.get_page(page)
-    # size = Books.objects.all()
     return render(request, 'books/all.html', {'books': book})
 
 
@@ -31,6 +31,7 @@ def add(request):
             book.uploader = request.user
             book.pdf = request.FILES['pdf']
             book.image = request.FILES['image']
+            book.size = os.path.getsize(request.FILES['pdf'])
             book.save()
             return redirect('home')
         else:
