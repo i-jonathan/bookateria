@@ -17,7 +17,16 @@ class Books(models.Model):
     slug = models.SlugField(unique=True, max_length=255)
 
     def megabytes(self):
-        return round(self.size/1048576, 2)
+        if self.size < 1024:
+            fsize = self.size
+            message = str(fsize) + ' Bytes'
+        elif self.size < 1048576:
+            fsize = round(self.size/1024, 2)
+            message = str(fsize) + ' Kb'
+        else:
+            fsize = round(self.size/1048576, 2)
+            message = str(fsize) + ' Mb'
+        return message
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
