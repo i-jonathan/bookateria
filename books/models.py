@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.utils.text import slugify
 # Create your models here.
 
 
@@ -27,10 +26,6 @@ class Books(models.Model):
             fsize = round(self.size/1048576, 2)
             message = str(fsize) + ' Mb'
         return message
-
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
-        super(Books, self).save(*args, **kwargs)
 
     def summary(self):
         return self.description[:100]
