@@ -15,6 +15,7 @@ class Books(models.Model):
     uploader = models.ForeignKey(User, on_delete=models.CASCADE)
     slug = models.SlugField(unique=True, max_length=255)
 
+    """
     def megabytes(self):
         if self.size < 1024:
             fsize = self.size
@@ -26,6 +27,7 @@ class Books(models.Model):
             fsize = round(self.size/1048576, 2)
             message = str(fsize) + ' Mb'
         return message
+    """
 
     def summary(self):
         return self.description[:100]
