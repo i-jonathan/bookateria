@@ -16,6 +16,7 @@ class Books(models.Model):
     slug = models.SlugField(unique=True, max_length=255)
 
     def megabytes(self):
+        self.sizes = self.pdf.size
         if self.size < 1024:
             fsize = self.size
             message = str(fsize) + ' Bytes'

@@ -31,7 +31,7 @@ def add(request):
             book.uploader = request.user
             book.pdf = request.FILES['pdf']
             book.image = request.FILES['image']
-            #book.size = os.path.getsize(request.FILES['pdf'])
+            # book.size = request.FILES['pdf'].size
             book.save()
             return redirect('home')
         else:
