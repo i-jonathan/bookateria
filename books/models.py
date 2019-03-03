@@ -9,11 +9,24 @@ class Books(models.Model):
     description = models.TextField()
     downloads = models.IntegerField(default=0)
     upload_date = models.DateTimeField()
-    # size = models.FloatField()
+    size = models.FloatField(null=True)
     image = models.ImageField(upload_to='images/')
     pdf = models.FileField(upload_to='file/')
     uploader = models.ForeignKey(User, on_delete=models.CASCADE)
     slug = models.SlugField(unique=True, max_length=255)
+
+    def megabytes(self):
+        self.sizes = self.pdf.size
+        if self.size < 1024:
+            fsize = self.size
+            message = str(fsize) + ' Bytes'
+        elif self.size < 1048576:
+            fsize = round(self.size/1024, 2)
+            message = str(fsize) + ' Kb'
+        else:
+            fsize = round(self.size/1048576, 2)
+            message = str(fsize) + ' Mb'
+        return message
 
     def summary(self):
         return self.description[:100]
