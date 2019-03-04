@@ -6,6 +6,9 @@
             {% csrf_token %}
             <div class="form-group">
                 <h2 class="text-center mb-3" >Add a Book Here</h2>
+                 <h4>Note: Due to some problems with the server, books aren't uploading smoothly. <br>
+                However, books can still be downloaded. Enjoy and Thanks for your patience and tolerance</h4>
+                <h4> - Signed, Management</h4>
                 {% if error %}
                     {{ error }}
                     <br><br>
@@ -15,31 +18,9 @@
             <div class="form-group">
                 <input name="author" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Author">
             </div>
-            {% comment %}<div class="row">
-            <div class="col-4">
-                <div class="form-group">
-                    <input name="author" type="checkbox" id="exampleFormControlInput1" value="arts"> Arts<br>
-                    <input name="author" type="checkbox" id="exampleFormControlInput1" value="bms"> Basic Medical Science<br>
-                    <input name="author" type="checkbox" id="exampleFormControlInput1" value="cs"> Clinical Science<br>
-                    <input name="author" type="checkbox" id="exampleFormControlInput1" value="ds"> Dental Science<br>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="form-group">
-                    <input name="author" type="checkbox" id="exampleFormControlInput1" value="education"> Education<br>
-                    <input name="author" type="checkbox" id="exampleFormControlInput1" value="engineering"> Engineering<br>
-                    <input name="author" type="checkbox" id="exampleFormControlInput1" value="es"> Environmental Science<br>
-                    <input name="author" type="checkbox" id="exampleFormControlInput1" value="law"> Law<br>
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="form-group">
-                    <input name="author" type="checkbox" id="exampleFormControlInput1" value="ms"> Management Sciences <br>
-                    <input name="author" type="checkbox" id="exampleFormControlInput1" value="pharmacy"> Pharmacy<br>
-                    <input name="author" type="checkbox" id="exampleFormControlInput1" value="science"> Science<br>
-                </div>
-            </div>
-        </div>{% endcomment %}
+{#            <div class="form-group">#}
+{#                <input name="category" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Category">#}
+{#            </div>#}
             <div class="form-group">
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Book Description" name="description"></textarea>
             </div>
