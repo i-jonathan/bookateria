@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Books
+from .models import Books, Categories
 from django.core.paginator import Paginator
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
@@ -24,6 +24,7 @@ def add(request):
     if request.method == 'POST':
         if request.POST['title'] and request.POST['author'] and request.POST['description'] and request.FILES['pdf'] and request.FILES['image']:
             book = Books()
+            cat = Categories()
             book.title = request.POST['title']
             book.author = request.POST['author']
             book.description = request.POST['description']
