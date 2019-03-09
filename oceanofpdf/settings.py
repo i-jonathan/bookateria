@@ -24,6 +24,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = False
 
 ALLOWED_HOSTS = [
+    'bookateria.net',
     '68.183.127.13',
     'bookateria.herokuapp.com',
     '0.0.0.0',
