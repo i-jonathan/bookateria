@@ -4,7 +4,6 @@ Pillow
 gunicorn
 whitenoise
 psycopg2-binary
-dj-database-url
 postgres
 pytz
 python-decouple

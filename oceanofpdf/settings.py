@@ -8,7 +8,6 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-import dj_database_url
 from decouple import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -22,9 +21,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
+    '68.183.127.13',
     'bookateria.herokuapp.com',
     '0.0.0.0',
     '127.0.0.1'
@@ -81,16 +81,13 @@ WSGI_APPLICATION = 'oceanofpdf.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('DB_NAME', ''),
-        'USER': os.environ.get('DB_USER', ''),
-        'PASSWORD': os.environ.get('DB_PASS', ''),
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASS'),
         'HOST': 'localhost',
         'PORT': '5432',
     }
 }
-
-db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
 # offline work
 # DATABASES = {
 #     'default': {
@@ -140,7 +137,7 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = 'static/'
 
-STATIC_URL = 'https://jayspots.com/static/'
+STATIC_URL = os.path.join(BASE_DIR, 'static/')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
