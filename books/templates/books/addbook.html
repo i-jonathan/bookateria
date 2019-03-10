@@ -6,9 +6,6 @@
             {% csrf_token %}
             <div class="form-group">
                 <h2 class="text-center mb-3" >Add a Book Here</h2>
-                 <h4>Note: Due to some problems with the server, books aren't uploading smoothly. <br>
-                However, books can still be downloaded. Enjoy and Thanks for your patience and tolerance</h4>
-                <h4> - Signed, Management</h4>
                 {% if error %}
                     {{ error }}
                     <br><br>
