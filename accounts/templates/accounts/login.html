@@ -18,12 +18,8 @@
                     <input name="password" type="password" class="form-control" id="exampleFormControlInput1" placeholder="Password">
                 </div>
                 <div class="mt-3">
-                    <input type="submit" class="btn btn-primary mb-2" value="Login">
+                    <input type="submit" class="btn mybutton mb-2" value="Login">
                 </div>
-                {% if Forgot %}
-                    <a href="{% url 'password_reset' %}">{{ Forgot }}</a>
-                    <br><br>
-                {% endif %}
             </form>
         </div>
         <div class="col-3"></div>

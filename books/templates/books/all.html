@@ -1,34 +1,85 @@
-{% extends 'base.html' %}
-{% load staticfiles %}
-{% block content %}
+<!doctype html>
+<html lang="en">
+<head>
+    {% load staticfiles %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{% static 'fav.png' %}">
 
+    <title>Bookateria - Find Books you need for Educational Purposes</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,500" rel="stylesheet">
+    <link href="{% static 'style.css' %}" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+</head>
+
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #001d3a;">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <img src="{% static 'logo.png' %}" class="d-inline-block align-top" height=30 width=30 alt="logo"> Bookateria</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" ariProducta-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav mr-auto">
+                    {% if user.is_authenticated %}
+                        <a class="nav-item nav-link" href="{% url 'addbook' %}">Submit a Book</a>
+                        <a class="nav-item nav-link" href="javascript:{document.getElementById('logout').submit()}">Logout</a>
+                        <form id="logout" action="{% url 'logout' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden">
+                        </form>
+                    {% else %}
+                        <a class="nav-item nav-link" href="{% url 'signup' %}">Sign Up</a>
+                        <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                    {% endif %}
+                </div>
+                <div class="navbar-nav ml-auto">
+                    <form class="form-inline my-2 my-lg-0" method="POST" action="{% url 'search' %}">
+                        {% csrf_token %}
+                        <input class="form-control mr-sm-2" name="query" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn search-button my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<div class="container">
     {% if books %}
-    <table class="table table-bordered mt-5">
-        <thead class="thead-light">
-        <tr>
-            <th scope="col"></th>
-            <th class="align-middle" scope="col">Book Title - Author</th>
-            <th scope="col" class="align-middle text-center">Upload Date</th>
-            <th scope="col" class="text-center align-middle">Uploader</th>
-            <th scope="col" class="text-center align-middle">Number of Downloads</th>
-        </tr>
-        </thead>
-        {% for book in books %}
-            <tbody>
+        <table class="table table-bordered mt-5">
+            <thead class="thead-light">
             <tr>
-                <th scope="row" class="text-center"><img src="{% static 'fav.png' %}" width=20></th>
-                <td onclick="window.location='{% url 'detail' book.id %}';" style="cursor: pointer;">{{ book.title }} - {{ book.author }}</td>
-                <td class="text-center">{{ book.date }}</td>
-                <td class="text-center">{{ book.uploader }}</td>
-                <td class="text-center">{{ book.downloads }}</td>
+                <th scope="col"></th>
+                <th class="align-middle" scope="col">Book Title - Author</th>
+                <th scope="col" class="align-middle text-center">Upload Date</th>
+                <th scope="col" class="text-center align-middle">Uploader</th>
+                <th scope="col" class="text-center align-middle">Number of Downloads</th>
             </tr>
-            </tbody>
-        {% endfor %}
-    </table>
+            </thead>
+            {% for book in books %}
+                <tbody>
+                <tr>
+                    <th scope="row" class="text-center"><img src="{% static 'fav.png' %}" width=20></th>
+                    <td onclick="window.location='{% url 'detail' book.id %}';" style="cursor: pointer;">{{ book.title }} - {{ book.author }}</td>
+                    <td class="text-center">{{ book.date }}</td>
+                    <td class="text-center">{{ book.uploader }}</td>
+                    <td class="text-center">{{ book.downloads }}</td>
+                </tr>
+                </tbody>
+            {% endfor %}
+        </table>
 
 
-    <div class="pagination ">
-    <span class="step-links">
+        <div class="pagination ">
+        <span class="step-links">
         {% if books.has_previous %}
             <a href="?page=1">&laquo; first</a>
             <a href="?page={{ books.previous_page_number }}">previous</a>
@@ -43,7 +94,7 @@
             <a href="?page={{ books.paginator.num_pages }}">last &raquo;</a>
         {% endif %}
     {% else %}
-    <div class="row">
+        <div class="row">
     <div class="container text-center">
         <h5>Be the First to add a Book!😃🤗</h5>
     </div>
@@ -51,4 +102,24 @@
     {% endif %}
     </span>
     </div>
-{% endblock %}
+
+</div>
+
+<footer class="text-muted mt-5">
+    <div class="container">
+        <p class="text-center">Made with <span style="color: #111111;">&#9829;</span> by Jonathan</p>
+        <p class="text-center"><a href="https://github.com/JonathanFarinloye/bookateria" target="_blank"><img src="{% static 'github.png' %}" height="20" alt="Github-logo"></a> &nbsp;&nbsp;<a href="https://twitter.com/I_jonathan_" target="_blank"><img src="{% static 'twitter.png' %}" height="20" alt="twitter"></a></p>
+    </div>
+</footer>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+</body>
+</html>

@@ -1,3 +1,25 @@
 body{
     font-family: 'Raleway', sans-serif!important;
 }
+.mybutton {
+    color: #001d3a;
+    background-color: transparent;
+    background-image: none;
+    border-color: #001d3a!important;
+}
+.mybutton:hover {
+    color: #fff;
+    background-color: #001d3a;
+    border-color: #001d3a!important;
+}
+.search-button {
+    color: #B27000;
+    background-color: transparent;
+    background-image: none;
+    border-color: #B27000!important;
+}
+.search-button:hover {
+    color: #fff;
+    background-color: #B27000;
+    border-color: #B27000!important;;
+}
