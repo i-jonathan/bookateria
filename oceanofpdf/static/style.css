@@ -1,3 +1,7 @@
+@font-face {
+    font-family: 'Raleway', sans-serif!important;
+    font-display: swap;
+}
 body{
     font-family: 'Raleway', sans-serif!important;
 }
