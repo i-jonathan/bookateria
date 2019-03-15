@@ -12,7 +12,7 @@ class Books(models.Model):
     size = models.FloatField(null=True)
     image = models.ImageField(upload_to='images/')
     pdf = models.FileField(upload_to='file/')
-    uploader = models.ForeignKey(User, on_delete=models.CASCADE)
+    uploader = models.ForeignKey(User, on_delete=models.PROTECT)
 
     def megabytes(self):
         self.size = self.pdf.size
