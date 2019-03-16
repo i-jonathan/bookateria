@@ -3,6 +3,7 @@ from .models import Books
 from django.core.paginator import Paginator
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -31,6 +32,9 @@ def add(request):
             book.pdf = request.FILES['pdf']
             book.image = request.FILES['image']
             book.size = book.pdf.size
+            user = User.objects.get(pk=book.uploader_id)
+            user.profile.points += 6
+            user.profile.save()
             book.save()
             return redirect('home')
         else:
@@ -39,14 +43,17 @@ def add(request):
         return render(request, 'books/addbook.html')
 
 
-def detail(request, books_id):
-    book = get_object_or_404(Books, pk=books_id)
+def detail(request, slug):
+    book = get_object_or_404(Books, slug=slug)
     return render(request, 'books/detail.html', {'book': book})
 
 
-def download(request, books_id):
+def download(request, slug):
     if request.method == 'POST':
-        book = get_object_or_404(Books, pk=books_id)
+        book = get_object_or_404(Books, slug=slug)
+        user = User.objects.get(pk=book.uploader_id)
+        user.profile.points += 2
+        user.profile.save()
         book.downloads += 1
         book.save()
         return redirect(book.pdf.url)
@@ -56,6 +63,4 @@ def search(request):
     if request.method == 'POST':
         book = Books.objects.all().filter(title__icontains=request.POST['query'])
         return render(request, 'books/search-result.html', {'books': book})
-
-
 
