@@ -19,6 +19,6 @@ class Profile(models.Model):
         instance.profile.save()
 
     def __str__(self):
-        return self.user
+        return str(self.user)
 
 
