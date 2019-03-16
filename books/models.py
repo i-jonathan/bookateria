@@ -17,8 +17,9 @@ class Books(models.Model):
     slug = models.SlugField(max_length=255)
 
     def save(self, *args, **kwargs):
-        self.slug = self.slug[:100]
         self.slug = slugify(self.title)
+        if len(self.slug) >= 100:
+            self.slug = self.slug[:100]
         return super(Books, self).save(*args, **kwargs)
 
     def megabytes(self):
