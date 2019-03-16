@@ -14,7 +14,7 @@ def login(request):
                 return redirect('home')
             else:
                 return render(request, 'accounts/login.html', {'error': 'Username or password is incorrect'},
-                              {'Forgot':'Forgot Your Password?'})
+                              {'Forgot': 'Forgot Your Password?'})
         else:
             return render(request, 'accounts/login.html', {'error': 'All fields are required'})
     else:
@@ -52,5 +52,5 @@ def signup(request):
 def logout(request):
     if request.method == 'POST':
         auth.logout(request)
-        return redirect('home')
+        return redirect('home' '')
 

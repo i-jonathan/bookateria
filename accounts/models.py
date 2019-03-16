@@ -7,7 +7,7 @@ from django.dispatch import receiver
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = models.ImageField(upload_to='avatar/', default='accounts/templates/icon/icon.png')
+    avatar = models.ImageField(upload_to='avatar/')
     points = models.IntegerField(default=20)
 
     @receiver(post_save, sender=User)
@@ -18,6 +18,13 @@ class Profile(models.Model):
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
+
+    @property
+    def image(self):
+        if self.avatar:
+            return self.avatar.url
+        else:
+            return 'accounts/templates/icon/icon.png'
 
     # def __str__(self):
     #     return self.user
