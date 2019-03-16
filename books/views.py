@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Books
+from .models import Books, Faculty, Type, Level
 from django.core.paginator import Paginator
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
@@ -35,12 +35,28 @@ def add(request):
             user = User.objects.get(pk=book.uploader_id)
             user.profile.points += 6
             user.profile.save()
+            category = request.POST.get('category')
+            typology = Type.objects.get(name__icontains=category)
+            book.typology = typology
             book.save()
+            for i in request.POST.getlist('faculty'):
+                me = Faculty.objects.get(name__icontains=i)
+                book.faculty.add(me)
+
+            for i in request.POST.getlist('level'):
+                lvl = Level.objects.get(name__icontains=i)
+                book.level.add(lvl)
             return redirect('home')
         else:
             return render(request, 'books/addbook.html', {'error': 'All fields are Required!'})
     else:
-        return render(request, 'books/addbook.html')
+
+        diction = {
+            'faculties': Faculty.objects.all(),
+            'levels': Level.objects.all(),
+            'classification': Type.objects.all()
+        }
+        return render(request, 'books/addbook.html', {'dict': diction})
 
 
 def detail(request, slug):
@@ -63,4 +79,10 @@ def search(request):
     if request.method == 'POST':
         book = Books.objects.all().filter(title__icontains=request.POST['query'])
         return render(request, 'books/search-result.html', {'books': book})
+
+
+def faculty(request):
+    faculties = Faculty.objects.all()
+    return render(request, 'books/faculties.html', {'cat': faculties})
+
 

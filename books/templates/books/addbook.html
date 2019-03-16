@@ -10,16 +10,43 @@
                     {{ error }}
                     <br><br>
                 {% endif %}
-                <input name="title" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Book Title" required>
+                <input name="title" type="text" class="form-control" placeholder="Book Title" required>
             </div>
             <div class="form-group">
-                <input name="author" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Author" required>
+                <input name="author" type="text" class="form-control" placeholder="Author" required>
             </div>
-{#            <div class="form-group">#}
-{#                <input name="category" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Category">#}
-{#            </div>#}
             <div class="form-group">
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Book Description" name="description" required></textarea>
+                <label for="fac">Select Faculty</label>
+                <select id="fac" class="form-control" name="faculty" aria-describedby="fac-help" multiple>
+                    {% for item in dict.faculties %}
+                        <option value={{ item.name }}>{{ item.name }}</option>
+                    {% endfor %}
+                </select>
+                <small id="fac-help" class="form-text text-muted">
+                    Use Ctrl + Click to select Multiple Items
+                </small>
+            </div>
+            <div class="form-group">
+                <label for="lev">Select Level(s)</label>
+                <select id="lev" class="form-control" name="level" aria-describedby="lvl-help" multiple>
+                    {% for item in dict.levels %}
+                        <option value={{ item.name }}>{{ item.name }}</option>
+                    {% endfor %}
+                </select>
+                <small id="lvl-help" class="form-text text-muted">
+                    Use Ctrl + Click to select Multiple Items
+                </small>
+            </div>
+            <div class="form-group">
+                <label for="cat">Select Category</label>
+                <select id="cat" class="form-control" name="category">
+                    {% for item in dict.classification %}
+                        <option value={{ item.name }}>{{ item.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <textarea class="form-control" rows="3" placeholder="Book Description" name="description" required></textarea>
             </div>
 
             <div class="custom-file mb-3">

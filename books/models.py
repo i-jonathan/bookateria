@@ -15,6 +15,12 @@ class Books(models.Model):
     pdf = models.FileField(upload_to='file/')
     uploader = models.ForeignKey(User, on_delete=models.PROTECT)
     slug = models.SlugField(max_length=255)
+    faculty = models.ManyToManyField('Faculty')
+    typology = models.ForeignKey('Type', on_delete=models.PROTECT, null=True)
+    level = models.ManyToManyField('Level')
+
+    class Meta:
+        ordering = ('title', )
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
@@ -44,5 +50,35 @@ class Books(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Faculty(models.Model):
+    name = models.CharField(max_length=40)
+
+    class Meta:
+        ordering = ('name', )
+
+    def __str__(self):
+        return self.name
+
+
+class Type(models.Model):
+    name = models.CharField(max_length=30)
+
+    class Meta:
+        ordering = ('name', )
+
+    def __str__(self):
+        return self.name
+
+
+class Level(models.Model):
+    name = models.CharField(max_length=30)
+
+    class Meta:
+        ordering = ('name', )
+
+    def __str__(self):
+        return self.name
 
 
