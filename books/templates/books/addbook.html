@@ -5,7 +5,7 @@
         <form method="POST" enctype="multipart/form-data" action="{% url 'addbook' %}">
             {% csrf_token %}
             <div class="form-group">
-                <h2 class="text-center mb-3" >Add a Book Here</h2>
+                <h2 class="text-center mb-3" >Add a Document Here</h2>
                 {% if error %}
                     {{ error }}
                     <br><br>

@@ -7,6 +7,6 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('ice/', admin.site.urls),
     path('', views.home, name='home'),
-    path('books/', include('books.urls')),
+    path('documents/', include('books.urls')),
     path('accounts/', include('accounts.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

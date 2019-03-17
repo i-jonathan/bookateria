@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="{% static 'fav.png' %}">
 
-    <title>Bookateria - Find Books you need for Educational Purposes</title>
+    <title>Bookateria - Find Documenta you need for Educational Purposes</title>
 
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,500" rel="stylesheet">
     <link href="{% static 'style.css' %}" rel="stylesheet">
@@ -28,9 +28,9 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav mr-auto">
-                    <a class="nav-item nav-link" href="{% url 'allbooks' %}">View Books</a>
+                    <a class="nav-item nav-link" href="{% url 'allbooks' %}">All Documents</a>
                     {% if user.is_authenticated %}
-                        <a class="nav-item nav-link" href="{% url 'addbook' %}">Submit a Book</a>
+                        <a class="nav-item nav-link" href="{% url 'addbook' %}">Submit a Document</a>
                         <a class="nav-item nav-link" href="javascript:{document.getElementById('logout').submit()}">Logout</a>
                         <form id="logout" action="{% url 'logout' %}" method="POST">
                             {% csrf_token %}
