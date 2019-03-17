@@ -6,8 +6,8 @@
             {% csrf_token %}
             <div class="form-group">
                 <h2 class="text-center mb-3" >Add a Document Here</h2>
-                {% if error %}
-                    {{ error }}
+                {% if dict.error %}
+                    {{ dict.error }}
                     <br><br>
                 {% endif %}
                 <input name="title" type="text" class="form-control" placeholder="Book Title" required>

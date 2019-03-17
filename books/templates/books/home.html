@@ -7,21 +7,12 @@
             <h2>
                 <span style="font-weight: 500;">Welcome to Bookateria.</span>
             </h2>
-            <h5>Find and Share books you find useful. We appreciate 😉</h5>
+            <h5>Find and Share Documents you find useful. We appreciate 😉</h5>
         </div>
         <div class="container mt-3 text-center">
             <a href="{% url 'allbooks' %}" class="btn mybutton btn-lg" role="button" aria-pressed="true">
-                View All Books
+                View All Documents
             </a>&nbsp;&nbsp;
-{#            {% if user.is_authenticated %}#}
-{#            <a href="{% url 'allbooks' %}" class="btn btn-outline-dark btn-lg" role="button" aria-pressed="true">#}
-{#                Submit a Book#}
-{#            </a>#}
-{#            {% else %}#}
-{#            <a href="{% url 'login' %}" class="btn btn-outline-dark btn-lg" role="button" aria-pressed="true">#}
-{#                Login#}
-{#            </a>#}
-{#            {% endif %}#}
         </div>
     </div>
 {% endblock %}
