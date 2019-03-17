@@ -22,33 +22,30 @@ def bookview(request):
 @login_required
 def add(request):
     if request.method == 'POST':
-        if request.POST['title'] and request.POST['author'] and request.POST['description'] and request.FILES['pdf'] and request.FILES['image']:
-            book = Books()
-            book.title = request.POST['title']
-            book.author = request.POST['author']
-            book.description = request.POST['description']
-            book.upload_date = timezone.datetime.now()
-            book.uploader = request.user
-            book.pdf = request.FILES['pdf']
-            book.image = request.FILES['image']
-            book.size = book.pdf.size
-            user = User.objects.get(pk=book.uploader_id)
-            user.profile.points += 6
-            user.profile.save()
-            category = request.POST.get('category')
-            typology = Type.objects.get(name__icontains=category)
-            book.typology = typology
-            book.save()
-            for i in request.POST.getlist('faculty'):
-                me = Faculty.objects.get(name__icontains=i)
-                book.faculty.add(me)
+        book = Books()
+        book.title = request.POST['title']
+        book.author = request.POST['author']
+        book.description = request.POST['description']
+        book.upload_date = timezone.datetime.now()
+        book.uploader = request.user
+        book.pdf = request.FILES['pdf']
+        book.image = request.FILES['image']
+        book.size = book.pdf.size
+        user = User.objects.get(pk=book.uploader_id)
+        user.profile.points += 6
+        user.profile.save()
+        category = request.POST.get('category')
+        typology = Type.objects.get(name__icontains=category)
+        book.typology = typology
+        book.save()
+        for i in request.POST.getlist('faculty'):
+            me = Faculty.objects.get(name__icontains=i)
+            book.faculty.add(me)
 
-            for i in request.POST.getlist('level'):
-                lvl = Level.objects.get(name__icontains=i)
-                book.level.add(lvl)
-            return redirect('home')
-        else:
-            return render(request, 'books/addbook.html', {'error': 'All fields are Required!'})
+        for i in request.POST.getlist('level'):
+            lvl = Level.objects.get(name__icontains=i)
+            book.level.add(lvl)
+        return redirect('home')
     else:
 
         diction = {

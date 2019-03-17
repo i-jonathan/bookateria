@@ -16,8 +16,8 @@
                 <input name="author" type="text" class="form-control" placeholder="Author" required>
             </div>
             <div class="form-group">
-                <label for="fac">Select Faculty</label>
-                <select id="fac" class="form-control" name="faculty" aria-describedby="fac-help" multiple>
+                <label for="fac">Select one or more Faculties</label>
+                <select id="fac" class="form-control" name="faculty" aria-describedby="fac-help" required multiple>
                     {% for item in dict.faculties %}
                         <option value={{ item.name }}>{{ item.name }}</option>
                     {% endfor %}
@@ -28,7 +28,7 @@
             </div>
             <div class="form-group">
                 <label for="lev">Select Level(s)</label>
-                <select id="lev" class="form-control" name="level" aria-describedby="lvl-help" multiple>
+                <select id="lev" class="form-control" name="level" aria-describedby="lvl-help" required multiple>
                     {% for item in dict.levels %}
                         <option value={{ item.name }}>{{ item.name }}</option>
                     {% endfor %}
@@ -39,7 +39,8 @@
             </div>
             <div class="form-group">
                 <label for="cat">Select Category</label>
-                <select id="cat" class="form-control" name="category">
+                <select id="cat" class="form-control" name="category" required>
+                        <option style="display: none" disabled selected value> -- select an option --</option>
                     {% for item in dict.classification %}
                         <option value={{ item.name }}>{{ item.name }}</option>
                     {% endfor %}
