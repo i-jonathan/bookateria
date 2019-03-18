@@ -85,7 +85,10 @@ def download(request, slug):
 
 def search(request):
     if request.method == 'POST':
-        book = Books.objects.all().filter(title__icontains=request.POST['query'])
+        book_list = Books.objects.all().filter(title__icontains=request.POST['query']).order_by('downloads')
+        paginator = Paginator(book_list, 20)  # Show 20 books per page TODO improve pagination
+        page = request.GET.get('page')
+        book = paginator.get_page(page)
         return render(request, 'books/search-result.html', {'books': book})
 
 
