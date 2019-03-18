@@ -11,13 +11,18 @@ class Books(models.Model):
     downloads = models.IntegerField(default=0, editable=False)
     upload_date = models.DateTimeField()
     size = models.FloatField(null=True)
-    image = models.ImageField(upload_to='images/')
+    image = models.ImageField(upload_to='images/', blank=True)
     pdf = models.FileField(upload_to='file/')
     uploader = models.ForeignKey(User, on_delete=models.PROTECT)
     slug = models.SlugField(max_length=255)
     faculty = models.ManyToManyField('Faculty')
     typology = models.ForeignKey('Type', on_delete=models.PROTECT, null=True)
     level = models.ManyToManyField('Level')
+
+    @property
+    def photo_url(self):
+        if self.image and hasattr(self.image, 'url'):
+            return self.image.url
 
     class Meta:
         ordering = ('title', )

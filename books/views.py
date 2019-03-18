@@ -39,7 +39,8 @@ def add(request):
             book.upload_date = timezone.datetime.now()
             book.uploader = request.user
             book.pdf = request.FILES['pdf']
-            book.image = request.FILES['image']
+            if request.FILES.get('image', False):
+                book.image = request.FILES['image']
             book.size = book.pdf.size
             user = User.objects.get(pk=book.uploader_id)
             user.profile.points += 6
@@ -71,9 +72,9 @@ def detail(request, slug):
     return render(request, 'books/detail.html', {'book': book})
 
 
-def download(request, slug, books_id):
+def download(request, slug):
     if request.method == 'POST':
-        book = get_object_or_404(Books, slug=slug, pk=books_id)
+        book = get_object_or_404(Books, slug=slug)
         user = User.objects.get(pk=book.uploader_id)
         user.profile.points += 2
         user.profile.save()

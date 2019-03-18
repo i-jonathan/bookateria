@@ -1,13 +1,20 @@
 {% extends 'base.html' %}
 {% block content %}
+    {% load staticfiles %}
     <div class="row mt-5">
-        <div class="col-2"><img src="{{ book.image.url }}" width=100% ></div>
-        <div class="col-7">
+        <div class="col-md-2">
+            {% if book.image %}
+                <img src="{{ book.image.url }}" alt="cover-image" width=100% >
+            {% else %}
+                <img src="{% static 'no-cover.jpg' %}" width=100% alt="cover-image">
+            {% endif %}
+        </div>
+        <div class="col-md-6">
             <h3>{{ book.title }}</h3>
             <br>
             {{ book.description }}
         </div>
-        <div class="col-3">
+        <div class="col-md-3">
             Uploaded by : <strong>{{ book.uploader }}</strong>
             <br><br>
             Uploaded on : <strong>{{ book.date }}</strong>
@@ -15,7 +22,7 @@
             Size : <strong>{{ book.megabytes }}</strong>
             <br><br>
             <div class="text-center">
-                <a href="javascript:{document.getElementById('add').submit()}" class="btn btn-primary btn-lg btn-block"
+                <a href="javascript:{document.getElementById('add').submit()}" class="btn mybutton btn-lg"
                    role="button" aria-pressed="true">Download
                 </a>
             </div>

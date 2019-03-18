@@ -52,7 +52,10 @@
 
             <div class="custom-file mb-3">
                 <h6>Upload Cover Image</h6>
-                <input type="file" name="image" accept=".png, .jpg" required>
+                <input type="file" name="image" accept=".png, .jpg" aria-describedby="default-image">
+                <small id="default-image" class="form-text text-muted">
+                    Leave this empty if you can't get the cover
+                </small>
             </div>
             <div class="custom-file mt-3 mb-3">
                 <h6>Upload Book</h6>
