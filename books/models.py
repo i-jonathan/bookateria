@@ -77,13 +77,13 @@ class Type(models.Model):
         return self.name
 
 
-class Level(models.Model):
-    name = models.CharField(max_length=30)
-
-    class Meta:
-        ordering = ('name', )
-
-    def __str__(self):
-        return self.name
+# class Level(models.Model):
+#     name = models.CharField(max_length=30)
+#
+#     class Meta:
+#         ordering = ('name', )
+#
+#     def __str__(self):
+#         return self.name
 
 

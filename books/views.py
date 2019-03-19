@@ -53,10 +53,10 @@ def add(request):
                 me = Faculty.objects.get(name__icontains=i)
                 book.faculty.add(me)
 
-            for i in request.POST.getlist('level'):
-                lvl = Level.objects.get(name__icontains=i)
-                book.level.add(lvl)
-            return redirect('home')
+            # for i in request.POST.getlist('level'):
+            #     lvl = Level.objects.get(name__icontains=i)
+            #     book.level.add(lvl)
+            # return redirect('home')
     else:
 
         diction = {
@@ -91,9 +91,5 @@ def search(request):
         book = paginator.get_page(page)
         return render(request, 'books/search-result.html', {'books': book})
 
-
-def faculty(request):
-    faculties = Faculty.objects.all()
-    return render(request, 'books/faculties.html', {'cat': faculties})
 
 
