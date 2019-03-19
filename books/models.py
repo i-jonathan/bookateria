@@ -17,7 +17,7 @@ class Books(models.Model):
     slug = models.SlugField(max_length=255)
     faculty = models.ManyToManyField('Faculty')
     typology = models.ForeignKey('Type', on_delete=models.PROTECT, null=True)
-    level = models.ManyToManyField('Level')
+    # level = models.ManyToManyField('Level')
 
     @property
     def photo_url(self):

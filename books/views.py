@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Books, Faculty, Type, Level
+from .models import Books, Faculty, Type
 from django.core.paginator import Paginator
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
@@ -27,7 +27,7 @@ def add(request):
             diction = {
                 'error': 'Document already Exists',
                 'faculties': Faculty.objects.all(),
-                'levels': Level.objects.all(),
+                # 'levels': Level.objects.all(),
                 'classification': Type.objects.all()
             }
             return render(request, 'books/addbook.html', {'dict': diction})
@@ -61,7 +61,7 @@ def add(request):
 
         diction = {
             'faculties': Faculty.objects.all(),
-            'levels': Level.objects.all(),
+            # 'levels': Level.objects.all(),
             'classification': Type.objects.all()
         }
         return render(request, 'books/addbook.html', {'dict': diction})
