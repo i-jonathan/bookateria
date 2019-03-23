@@ -11,3 +11,5 @@ Have a document you found or find useful during your university days? Upload it.
 <li><a href="https://aws.amazon.com/">AWS</a> - For Uploaded Files.</li> 
 </ul>
 
+## Version
+v1.3.4
