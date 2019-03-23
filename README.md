@@ -1,6 +1,13 @@
-# Bookateria
-A small site to hold pdf files for university students. Books by students for students.
+# **Bookateria**
+A site design to hold documents fellow university students find useful.
 
-Signup on the site (bookateria.net), Submit a book or find a Book that you need. Simple
+##Getting Started
+Have a document you found or find useful during your university days? Upload it. Others can view, search and download.
 
-PS: Still in development stages.
+##Built With
+<ul>
+<li><a href="https://www.djangoproject.com/">Django</a> - For the Backend</li>
+<li>Html and <a href="getbootstrap.com">Bootstrap</A> - Frontend</li>
+<li><a href="https://aws.amazon.com/">AWS</a> - For Uploaded Files.</li> 
+</ul>
+
