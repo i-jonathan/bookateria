@@ -1,10 +1,10 @@
 # **Bookateria**
 A site design to hold documents fellow university students find useful.
 
-##Getting Started
+## Getting Started
 Have a document you found or find useful during your university days? Upload it. Others can view, search and download.
 
-##Built With
+## Built With
 <ul>
 <li><a href="https://www.djangoproject.com/">Django</a> - For the Backend</li>
 <li>Html and <a href="getbootstrap.com">Bootstrap</A> - Frontend</li>
