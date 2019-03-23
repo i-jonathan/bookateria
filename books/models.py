@@ -17,7 +17,6 @@ class Books(models.Model):
     slug = models.SlugField(max_length=255)
     faculty = models.ManyToManyField('Faculty')
     typology = models.ForeignKey('Type', on_delete=models.PROTECT, null=True)
-    # level = models.ManyToManyField('Level')
 
     @property
     def photo_url(self):
@@ -76,14 +75,5 @@ class Type(models.Model):
     def __str__(self):
         return self.name
 
-
-# class Level(models.Model):
-#     name = models.CharField(max_length=30)
-#
-#     class Meta:
-#         ordering = ('name', )
-#
-#     def __str__(self):
-#         return self.name
 
 

@@ -52,16 +52,10 @@ def add(request):
             for i in request.POST.getlist('faculty'):
                 me = Faculty.objects.get(name__icontains=i)
                 book.faculty.add(me)
-
-            # for i in request.POST.getlist('level'):
-            #     lvl = Level.objects.get(name__icontains=i)
-            #     book.level.add(lvl)
-            # return redirect('home')
     else:
 
         diction = {
             'faculties': Faculty.objects.all(),
-            # 'levels': Level.objects.all(),
             'classification': Type.objects.all()
         }
         return render(request, 'books/addbook.html', {'dict': diction})
