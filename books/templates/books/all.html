@@ -30,8 +30,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav mr-auto">
+                    <a class="nav-item nav-link" href="{% url 'books_view' %}">Books</a>
+                    <a class="nav-item nav-link" href="{% url 'notes_view' %}">Lecture Notes</a>
+                    <a class="nav-item nav-link" href="{% url 'question_view' %}">Questions</a>
                     {% if user.is_authenticated %}
-                        <a class="nav-item nav-link" href="{% url 'addbook' %}">Submit a Document</a>
+                        <a class="nav-item nav-link" href="{% url 'add-document' %}">Submit a Document</a>
                         <a class="nav-item nav-link"
                            href="javascript:{document.getElementById('logout').submit()}">Logout</a>
                         <form id="logout" action="{% url 'logout' %}" method="POST">
@@ -62,7 +65,8 @@
             <tr>
                 <th scope="col"></th>
                 <th class="align-middle" scope="col">Document Title - Author</th>
-                <th scope="col" class="align-middle text-center">Upload Date</th>
+                <th scope="col" class="align-middle text-center">Date</th>
+                <th scope="col" class="text-center align-middle">Category</th>
                 <th scope="col" class="text-center align-middle">Uploader</th>
                 <th scope="col" class="text-center align-middle">Number of Downloads</th>
             </tr>
@@ -73,6 +77,7 @@
                     <th scope="row" class="text-center"><img src="{% static 'fav.png' %}" width=20></th>
                     <td onclick="window.location='{% url 'detail' book.slug %}';" style="cursor: pointer;">{{ book.title }} - {{ book.author }}</td>
                     <td class="text-center">{{ book.date }}</td>
+                    <td class="text-center">{{ book.typology }}</td>
                     <td class="text-center">{{ book.uploader }}</td>
                     <td class="text-center">{{ book.downloads }}</td>
                 </tr>

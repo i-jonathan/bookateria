@@ -13,7 +13,7 @@
             <tr>
                 <th scope="col"></th>
                 <th class="align-middle" scope="col">Book Title - Author</th>
-                <th scope="col" class="align-middle text-center">Upload Date</th>
+                <th scope="col" class="align-middle text-center">Date</th>
                 <th scope="col" class="text-center align-middle">Uploader</th>
                 <th scope="col" class="text-center align-middle">Number of Downloads</th>
             </tr>
@@ -50,7 +50,7 @@
     {% else %}
         <div class="container">
             <h5>Book not Found</h5>
-            <h5>Let us say you later find it, Kindly add it <strong><a href="{% url 'addbook' %}">here</a></strong></h5>
+            <h5>Let us say you later find it, Kindly add it <strong><a href="{% url 'add-document' %}">here</a></strong></h5>
             <h6>You could also make a request by tweeting at me
                 <a href="http://twitter.com/home?status=Book Title: %0D%0ABook Author: %0D%0AFor bookateria.net @I_jonathan_" target="_blank">right here</a></h6>
         </div>

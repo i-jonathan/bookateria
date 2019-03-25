@@ -11,12 +11,36 @@ def home(request):
     return render(request, 'books/home.html')
 
 
-def bookview(request):
+def view_all(request):
     book_list = Books.objects.all().order_by('-upload_date')
     paginator = Paginator(book_list, 20)  # Show 20 books per page TODO improve pagination
     page = request.GET.get('page')
     book = paginator.get_page(page)
     return render(request, 'books/all.html', {'books': book})
+
+
+def books_view(request):
+    book_list = Books.objects.filter(typology__name__icontains='Book')
+    paginator = Paginator(book_list, 20)  # Show 20 books per page TODO improve pagination
+    page = request.GET.get('page')
+    book = paginator.get_page(page)
+    return render(request, 'books/books.html', {'books': book})
+
+
+def notes_view(request):
+    book_list = Books.objects.filter(typology__name__icontains='Note')
+    paginator = Paginator(book_list, 20)  # Show 20 books per page TODO improve pagination
+    page = request.GET.get('page')
+    book = paginator.get_page(page)
+    return render(request, 'books/notes.html', {'books': book})
+
+
+def question_view(request):
+    book_list = Books.objects.filter(typology__name__icontains='Question')
+    paginator = Paginator(book_list, 20)  # Show 20 books per page TODO improve pagination
+    page = request.GET.get('page')
+    book = paginator.get_page(page)
+    return render(request, 'books/questions.html', {'books': book})
 
 
 @login_required

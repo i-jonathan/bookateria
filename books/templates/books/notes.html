@@ -22,19 +22,21 @@
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #001d3a;">
         <div class="container">
             <a class="navbar-brand" href="{% url 'home' %}">
-                <img src="{% static 'logo.png' %}" class="d-inline-block align-top" height=30 width=30 alt="logo"> Bookateria</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" ariProducta-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <img src="{% static 'logo.png' %}" class="d-inline-block align-top" height=30 width=30
+                     alt="logo"> Bookateria</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav mr-auto">
                     <a class="nav-item nav-link" href="{% url 'all-documents' %}">All Documents</a>
                     <a class="nav-item nav-link" href="{% url 'books_view' %}">Books</a>
-                    <a class="nav-item nav-link" href="{% url 'notes_view' %}">Lecture Notes</a>
                     <a class="nav-item nav-link" href="{% url 'question_view' %}">Questions</a>
                     {% if user.is_authenticated %}
                         <a class="nav-item nav-link" href="{% url 'add-document' %}">Submit a Document</a>
-                        <a class="nav-item nav-link" href="javascript:{document.getElementById('logout').submit()}">Logout</a>
+                        <a class="nav-item nav-link"
+                           href="javascript:{document.getElementById('logout').submit()}">Logout</a>
                         <form id="logout" action="{% url 'logout' %}" method="POST">
                             {% csrf_token %}
                             <input type="hidden">
@@ -44,21 +46,69 @@
                         <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
                     {% endif %}
                 </div>
-                {% comment %}<div class="navbar-nav ml-auto">
+                <div class="navbar-nav ml-auto">
                     <form class="form-inline my-2 my-lg-0" method="POST" action="{% url 'search' %}">
                         {% csrf_token %}
                         <input class="form-control mr-sm-2" name="query" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn search-button my-2 my-sm-0" type="submit">Search</button>
                     </form>
-                </div>{% endcomment %}
+                </div>
             </div>
         </div>
     </nav>
 </header>
 
 <div class="container">
-    {% block content %}
-    {% endblock %}
+    {% if books %}
+        <table class="table table-bordered mt-5">
+            <thead class="thead-light">
+            <tr>
+                <th scope="col"></th>
+                <th class="align-middle" scope="col">Title - Author</th>
+                <th scope="col" class="align-middle text-center">Date</th>
+                <th scope="col" class="text-center align-middle">Uploader</th>
+                <th scope="col" class="text-center align-middle">Number of Downloads</th>
+            </tr>
+            </thead>
+            {% for book in books %}
+                <tbody>
+                <tr>
+                    <th scope="row" class="text-center"><img src="{% static 'fav.png' %}" width=20></th>
+                    <td onclick="window.location='{% url 'detail' book.slug %}';" style="cursor: pointer;">{{ book.title }} - {{ book.author }}</td>
+                    <td class="text-center">{{ book.date }}</td>
+                    <td class="text-center">{{ book.uploader }}</td>
+                    <td class="text-center">{{ book.downloads }}</td>
+                </tr>
+                </tbody>
+            {% endfor %}
+        </table>
+
+
+        <div class="pagination ">
+        <span class="step-links">
+        {% if books.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ books.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ books.number }} of {{ books.paginator.num_pages }}.
+        </span>
+
+        {% if books.has_next %}
+            <a href="?page={{ books.next_page_number }}">next</a>
+            <a href="?page={{ books.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    {% else %}
+        <div class="row">
+    <div class="container text-center">
+        <h5>Be the First to add a Document!😃🤗</h5>
+    </div>
+    </div>
+    {% endif %}
+    </span>
+    </div>
+
 </div>
 
 <footer class="text-muted mt-5">

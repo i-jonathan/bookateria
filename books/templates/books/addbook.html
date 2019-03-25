@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% block content %}
     <div class="pt-5">
-        <form method="POST" enctype="multipart/form-data" action="{% url 'addbook' %}">
+        <form method="POST" enctype="multipart/form-data" action="{% url 'add-document' %}">
             {% csrf_token %}
             <div class="form-group">
                 <h2 class="text-center mb-3" >Add a Document Here</h2>
