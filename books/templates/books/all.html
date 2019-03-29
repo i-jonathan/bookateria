@@ -59,6 +59,9 @@
 </header>
 
 <div class="container">
+    {% if word %}
+    {{ word }}
+    {% endif %}
     {% if books %}
         <table class="table table-bordered mt-5">
             <thead class="thead-light">

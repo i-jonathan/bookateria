@@ -76,6 +76,7 @@ def add(request):
             for i in request.POST.getlist('faculty'):
                 me = Faculty.objects.get(name__icontains=i)
                 book.faculty.add(me)
+            return render(request, 'books/all.html', {'word': 'Upload Successful'})
     else:
 
         diction = {
