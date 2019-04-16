@@ -8,19 +8,24 @@ from django.contrib.auth.models import User
 
 # Create your views here.
 def home(request):
+    # This function is called when the homepage is visited. Returns the content of home.html file
     return render(request, 'books/home.html')
 
 
 def view_all(request):
+    # Displays all available documents, regardless of their type, ordered in reverse by upload date
     book_list = Books.objects.all().order_by('-upload_date')
-    paginator = Paginator(book_list, 20)  # Show 20 books per page TODO improve pagination
+    # Takes all 'document' objects in and groups them in 20's per page
+    # TODO improve pagination
+    paginator = Paginator(book_list, 20)
     page = request.GET.get('page')
     book = paginator.get_page(page)
     return render(request, 'books/all.html', {'books': book})
 
 
 def books_view(request):
-    book_list = Books.objects.filter(typology__name__icontains='Book')
+    # Same function as the view_all function, but restricted to Books
+    book_list = Books.objects.filter(typology__name__icontains='Book').order_by('-upload_date')
     paginator = Paginator(book_list, 20)  # Show 20 books per page TODO improve pagination
     page = request.GET.get('page')
     book = paginator.get_page(page)
@@ -28,7 +33,8 @@ def books_view(request):
 
 
 def notes_view(request):
-    book_list = Books.objects.filter(typology__name__icontains='Note')
+    # Same function as the view_all function, but restricted to Notes
+    book_list = Books.objects.filter(typology__name__icontains='Note').order_by('-upload_date')
     paginator = Paginator(book_list, 20)  # Show 20 books per page TODO improve pagination
     page = request.GET.get('page')
     book = paginator.get_page(page)
@@ -36,7 +42,8 @@ def notes_view(request):
 
 
 def question_view(request):
-    book_list = Books.objects.filter(typology__name__icontains='Question')
+    # Same function as the view_all function, but restricted to Questions
+    book_list = Books.objects.filter(typology__name__icontains='Question').order_by('-upload_date')
     paginator = Paginator(book_list, 20)  # Show 20 books per page TODO improve pagination
     page = request.GET.get('page')
     book = paginator.get_page(page)
@@ -45,6 +52,9 @@ def question_view(request):
 
 @login_required
 def add(request):
+    # This function is called by the add a document page, POST method runs a few checks and saves the document is
+    # successful. Checks if any book exists with the same title and author, if yes, return a 'document already
+    # exists message
     if request.method == 'POST':
         if Books.objects.filter(title__iexact=request.POST['title']) and \
                 Books.objects.filter(author__iexact=request.POST['author']):
@@ -54,7 +64,7 @@ def add(request):
                 # 'levels': Level.objects.all(),
                 'classification': Type.objects.all()
             }
-            return render(request, 'books/addbook.html', {'dict': diction})
+            return render(request, 'books/add-a-document.html', {'dict': diction})
         else:
             book = Books()
             book.title = request.POST['title']
@@ -83,7 +93,7 @@ def add(request):
             'faculties': Faculty.objects.all(),
             'classification': Type.objects.all()
         }
-        return render(request, 'books/addbook.html', {'dict': diction})
+        return render(request, 'books/add-a-document.html', {'dict': diction})
 
 
 def detail(request, slug):
@@ -109,6 +119,3 @@ def search(request):
         page = request.GET.get('page')
         book = paginator.get_page(page)
         return render(request, 'books/search-result.html', {'books': book})
-
-
-
