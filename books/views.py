@@ -72,9 +72,17 @@ def add(request):
             book.description = request.POST['description']
             book.upload_date = timezone.datetime.now()
             book.uploader = request.user
-            book.pdf = request.FILES['pdf']
+            # Validates files to be uploaded
             if request.FILES.get('image', False):
-                book.image = request.FILES['image']
+                if request.FILES['image'].name.endswith('.jpg') or request.FILES['image'].name.endswith('.png'):
+                    book.image = request.FILES['image']
+                else:
+                    return render(request, 'books/add-a-document.html', {'error': 'Upload a Valid Image. PNG or JPG'})
+            if request.FILES['pdf'].name.endswith('.pdf') or request.FILES['pdf'].name.endswith('.epub'):
+                book.pdf = request.FILES['pdf']
+            else:
+                return render(request, 'books/add-a-document.html',
+                              {'error': 'Please Upload a supported book format. EPUB or PDF'})
             book.size = book.pdf.size
             user = User.objects.get(pk=book.uploader_id)
             user.profile.points += 6

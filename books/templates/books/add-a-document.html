@@ -2,14 +2,21 @@
 {% load staticfiles %}
 {% block content %}
     <div class="pt-5">
+        <h2 class="text-center mb-3" >Add a Document Here</h2>
+
+            {% if dict.error %}
+                <div class="p-3 mb-2 bg-danger text-white">
+                {{ dict.error }}
+                </div>
+                <br><br>
+            {% elif error %}
+                <div class="p-3 mb-2 bg-danger text-white">
+                {{ error }}
+                </div>
+            {% endif %}
         <form method="POST" enctype="multipart/form-data" action="{% url 'add-document' %}">
             {% csrf_token %}
             <div class="form-group">
-                <h2 class="text-center mb-3" >Add a Document Here</h2>
-                {% if dict.error %}
-                    {{ dict.error }}
-                    <br><br>
-                {% endif %}
                 <input name="title" type="text" class="form-control" placeholder="Book Title" required>
             </div>
             <div class="form-group">
