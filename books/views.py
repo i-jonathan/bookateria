@@ -55,17 +55,14 @@ def add(request):
     # This function is called by the add a document page, POST method runs a few checks and saves the document is
     # successful. Checks if any book exists with the same title and author, if yes, return a 'document already
     # exists message
-    message = {
-        'error_exists': 'Document already Exists',
-        'error_image': 'Upload a Valid Image. PNG or JPG',
-        'error_file': 'Please Upload a supported book format. EPUB or PDF',
-        'faculties': Faculty.objects.all(),
-        'classification': Type.objects.all()
-    }
     if request.method == 'POST':
         if Books.objects.filter(title__iexact=request.POST['title']) and \
                 Books.objects.filter(author__iexact=request.POST['author']):
-
+            message = {
+                'error_exists': 'Document already Exists',
+                'faculties': Faculty.objects.all(),
+                'classification': Type.objects.all()
+            }
             return render(request, 'books/add-a-document.html', {'dict': message})
         else:
             book = Books()
@@ -79,10 +76,20 @@ def add(request):
                 if request.FILES['image'].name.endswith('.jpg') or request.FILES['image'].name.endswith('.png'):
                     book.image = request.FILES['image']
                 else:
+                    message = {
+                        'error_image': 'Upload a Valid Image. PNG or JPG',
+                        'faculties': Faculty.objects.all(),
+                        'classification': Type.objects.all()
+                    }
                     return render(request, 'books/add-a-document.html', {'dict': message})
             if request.FILES['pdf'].name.endswith('.pdf') or request.FILES['pdf'].name.endswith('.epub'):
                 book.pdf = request.FILES['pdf']
             else:
+                message = {
+                    'error_file': 'Please Upload a supported book format. EPUB or PDF',
+                    'faculties': Faculty.objects.all(),
+                    'classification': Type.objects.all()
+                }
                 return render(request, 'books/add-a-document.html', {'dict': message})
             # End of validation
             book.size = book.pdf.size
@@ -99,6 +106,10 @@ def add(request):
         return render(request, 'books/all.html', {'word': 'Upload Successful'})
 
     else:
+        message = {
+            'faculties': Faculty.objects.all(),
+            'classification': Type.objects.all()
+        }
         return render(request, 'books/add-a-document.html', {'dict': message})
 
 
