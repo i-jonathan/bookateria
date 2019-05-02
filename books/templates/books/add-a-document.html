@@ -26,7 +26,7 @@
             <div class="form-group">
                 <input name="author" type="text" class="form-control" placeholder="Author" required>
             </div>
-            <div class="form-group">
+            {% comment %}div class="form-group">
                 <label for="fac">Select one or more Faculties</label>
                 <select id="fac" class="form-control" name="faculty" aria-describedby="fac-help" required multiple>
                     {% for item in dict.faculties %}
@@ -36,7 +36,7 @@
                 <small id="fac-help" class="form-text text-muted">
                     Use Ctrl + Click to select Multiple Items
                 </small>
-            </div>
+            </div>{% endcomment %}
             <div class="form-group">
                 <label for="cat">Select Category</label>
                 <select id="cat" class="form-control" name="category" required>

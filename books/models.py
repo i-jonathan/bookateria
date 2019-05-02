@@ -15,7 +15,7 @@ class Books(models.Model):
     pdf = models.FileField(upload_to='file/')
     uploader = models.ForeignKey(User, on_delete=models.PROTECT)
     slug = models.SlugField(max_length=255)
-    faculty = models.ManyToManyField('Faculty')
+    # faculty = models.ManyToManyField('Faculty')
     typology = models.ForeignKey('Type', on_delete=models.PROTECT, null=True)
 
     @property
@@ -50,20 +50,19 @@ class Books(models.Model):
 
     def date(self):
         return self.upload_date.strftime('%b %e %Y')
-    '%m %Y %-d'
 
     def __str__(self):
         return self.title
 
 
-class Faculty(models.Model):
-    name = models.CharField(max_length=40)
-
-    class Meta:
-        ordering = ('name', )
-
-    def __str__(self):
-        return self.name
+# class Faculty(models.Model):
+#     name = models.CharField(max_length=40)
+#
+#     class Meta:
+#         ordering = ('name', )
+#
+#     def __str__(self):
+#         return self.name
 
 
 class Type(models.Model):

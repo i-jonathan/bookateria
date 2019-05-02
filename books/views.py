@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Books, Faculty, Type
+from .models import Books, Type
 from django.core.paginator import Paginator
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
@@ -60,7 +60,6 @@ def add(request):
                 Books.objects.filter(author__iexact=request.POST['author']):
             message = {
                 'error_exists': 'Document already Exists',
-                'faculties': Faculty.objects.all(),
                 'classification': Type.objects.all()
             }
             return render(request, 'books/add-a-document.html', {'dict': message})
@@ -78,7 +77,6 @@ def add(request):
                 else:
                     message = {
                         'error_image': 'Upload a Valid Image. PNG or JPG',
-                        'faculties': Faculty.objects.all(),
                         'classification': Type.objects.all()
                     }
                     return render(request, 'books/add-a-document.html', {'dict': message})
@@ -87,7 +85,6 @@ def add(request):
             else:
                 message = {
                     'error_file': 'Please Upload a supported book format. EPUB or PDF',
-                    'faculties': Faculty.objects.all(),
                     'classification': Type.objects.all()
                 }
                 return render(request, 'books/add-a-document.html', {'dict': message})
@@ -100,14 +97,10 @@ def add(request):
             typology = Type.objects.get(name__icontains=category)
             book.typology = typology
             book.save()
-            for i in request.POST.getlist('faculty'):
-                fac = Faculty.objects.get(name__icontains=i)
-                book.faculty.add(fac)
-        return render(request, 'books/all.html', {'word': 'Upload Successful'})
+            return redirect('all-documents', {'word': 'Upload Successful'})
 
     else:
         message = {
-            'faculties': Faculty.objects.all(),
             'classification': Type.objects.all()
         }
         return render(request, 'books/add-a-document.html', {'dict': message})
