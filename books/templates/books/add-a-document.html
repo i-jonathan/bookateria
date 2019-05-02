@@ -4,14 +4,18 @@
     <div class="pt-5">
         <h2 class="text-center mb-3" >Add a Document Here</h2>
 
-            {% if dict.error %}
+            {% if dict.error_exixts %}
                 <div class="p-3 mb-2 bg-danger text-white">
-                {{ dict.error }}
+                    {{ dict.error_exixts }}
                 </div>
                 <br><br>
-            {% elif error %}
+            {% elif dict.error_image %}
                 <div class="p-3 mb-2 bg-danger text-white">
-                {{ error }}
+                    {{ dict.error_image }}
+                </div>
+            {% elif dict.error_file %}
+                <div class="p-3 mb-2 bg-danger text-white">
+                    {{ dict.error_file }}
                 </div>
             {% endif %}
         <form method="POST" enctype="multipart/form-data" action="{% url 'add-document' %}">

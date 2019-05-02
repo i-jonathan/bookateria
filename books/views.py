@@ -55,16 +55,18 @@ def add(request):
     # This function is called by the add a document page, POST method runs a few checks and saves the document is
     # successful. Checks if any book exists with the same title and author, if yes, return a 'document already
     # exists message
+    message = {
+        'error_exists': 'Document already Exists',
+        'error_image': 'Upload a Valid Image. PNG or JPG',
+        'error_file': 'Please Upload a supported book format. EPUB or PDF',
+        'faculties': Faculty.objects.all(),
+        'classification': Type.objects.all()
+    }
     if request.method == 'POST':
         if Books.objects.filter(title__iexact=request.POST['title']) and \
                 Books.objects.filter(author__iexact=request.POST['author']):
-            diction = {
-                'error': 'Document already Exists',
-                'faculties': Faculty.objects.all(),
-                # 'levels': Level.objects.all(),
-                'classification': Type.objects.all()
-            }
-            return render(request, 'books/add-a-document.html', {'dict': diction})
+
+            return render(request, 'books/add-a-document.html', {'dict': message})
         else:
             book = Books()
             book.title = request.POST['title']
@@ -77,12 +79,12 @@ def add(request):
                 if request.FILES['image'].name.endswith('.jpg') or request.FILES['image'].name.endswith('.png'):
                     book.image = request.FILES['image']
                 else:
-                    return render(request, 'books/add-a-document.html', {'error': 'Upload a Valid Image. PNG or JPG'})
+                    return render(request, 'books/add-a-document.html', {'dict': message})
             if request.FILES['pdf'].name.endswith('.pdf') or request.FILES['pdf'].name.endswith('.epub'):
                 book.pdf = request.FILES['pdf']
             else:
-                return render(request, 'books/add-a-document.html',
-                              {'error': 'Please Upload a supported book format. EPUB or PDF'})
+                return render(request, 'books/add-a-document.html', {'dict': message})
+            # End of validation
             book.size = book.pdf.size
             user = User.objects.get(pk=book.uploader_id)
             user.profile.points += 6
@@ -92,16 +94,12 @@ def add(request):
             book.typology = typology
             book.save()
             for i in request.POST.getlist('faculty'):
-                me = Faculty.objects.get(name__icontains=i)
-                book.faculty.add(me)
-            return render(request, 'books/all.html', {'word': 'Upload Successful'})
-    else:
+                fac = Faculty.objects.get(name__icontains=i)
+                book.faculty.add(fac)
+        return render(request, 'books/all.html', {'word': 'Upload Successful'})
 
-        diction = {
-            'faculties': Faculty.objects.all(),
-            'classification': Type.objects.all()
-        }
-        return render(request, 'books/add-a-document.html', {'dict': diction})
+    else:
+        return render(request, 'books/add-a-document.html', {'dict': message})
 
 
 def detail(request, slug):
