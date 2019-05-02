@@ -3,20 +3,13 @@
 <head>
     {% load staticfiles %}
     <!-- Global site tag (gtag.js) - Google Analytics -->
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-137229526-1"></script>
-
-<script>
-
-  window.dataLayer = window.dataLayer || [];
-
-  function gtag(){dataLayer.push(arguments);}
-
-  gtag('js', new Date());
-
-  gtag('config', 'UA-137229526-1');
-
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-137229526-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-137229526-1');
+    </script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -37,8 +30,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #001d3a;">
         <div class="container">
             <a class="navbar-brand" href="{% url 'home' %}">
-                <img src="{% static 'logo.png' %}" class="d-inline-block align-top" height=30 width=30
-                     alt="logo"> Bookateria</a>
+                <img src="{% static 'logo.png' %}" class="d-inline-block align-top" height=30 alt="logo"> </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
                         aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
