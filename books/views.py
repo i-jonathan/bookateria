@@ -97,7 +97,7 @@ def add(request):
             typology = Type.objects.get(name__icontains=category)
             book.typology = typology
             book.save()
-            return redirect('all-documents', {'word': 'Upload Successful'})
+            return redirect('all-documents')
 
     else:
         message = {
