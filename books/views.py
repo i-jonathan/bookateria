@@ -97,7 +97,7 @@ def add(request):
             typology = Type.objects.get(name__icontains=category)
             book.typology = typology
             book.save()
-            return redirect('all-documents')
+            return render(request, 'books/add-a-document.html', {'word': 'Upload Successful. Upload another 😉'})
 
     else:
         message = {
