@@ -21,7 +21,7 @@
             {% for book in books %}
                 <tbody>
                 <tr>
-                    <th scope="row" class="text-center"><img src="{% static 'fav.png' %}" width=20></th>
+                    <th scope="row" class="text-center"><img src="{% static 'images/fav.png' %}" width=20></th>
                     <td onclick="window.location='{% url 'detail' book.slug %}';" style="cursor: pointer;">{{ book.title }} - {{ book.author }}</td>
                     <td class="text-center">{{ book.date }}</td>
                     <td class="text-center">{{ book.uploader }}</td>

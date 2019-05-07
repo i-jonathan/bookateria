@@ -134,12 +134,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'oceanofpdf/static/')
+    os.path.join(BASE_DIR, 'oceanofpdf/resources/')
 ]
 
-STATIC_ROOT = 'static/'
+STATIC_ROOT = 'resources/'
 
-STATIC_URL = os.path.join(BASE_DIR, 'static/')
+STATIC_URL = os.path.join(BASE_DIR, 'resources/')
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
