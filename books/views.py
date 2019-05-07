@@ -17,7 +17,7 @@ def view_all(request):
     book_list = Books.objects.all().order_by('-upload_date')
     # Takes all 'document' objects in and groups them in 20's per page
     # TODO improve pagination
-    paginator = Paginator(book_list, 1)
+    paginator = Paginator(book_list, 20)
     page = request.GET.get('page')
     book = paginator.get_page(page)
     return render(request, 'books/all.html', {'books': book})
