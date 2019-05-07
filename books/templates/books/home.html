@@ -1,18 +1,140 @@
-{% extends 'base.html' %}
-{% load staticfiles %}
-{% block content %}
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
 
-    <div class="row">
-        <div class="container mt-5 text-center">
-            <h2>
-                <span style="font-weight: 500;">Welcome to Bookateria.</span>
-            </h2>
-            <h5>Find and Share Documents you find useful. We appreciate 😉</h5>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-137229526-1"></script>
+
+    <script>
+
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){dataLayer.push(arguments);}
+
+        gtag('js', new Date());
+
+        gtag('config', 'UA-137229526-1');
+
+    </script>
+    {% load staticfiles %}
+
+    <meta name="theme-color" content="#001D3A">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{% static 'fav.png' %}">
+
+    <title>Bookateria - Find Documents you need for Educational Purposes</title>
+    <style>
+        html, body {
+            height: 100vh;
+            margin: 0;
+        }
+
+        .full-height {
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            background: #001d3a;
+        }
+        .section {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .searchbar{
+            margin-bottom: auto;
+            margin-top: auto;
+            height: 60px;
+            background-color: #e1e7f5;
+            border-radius: 30px;
+            padding: 10px;
+        }
+
+        .search_input{
+            color: #001d3a;
+            border: 0;
+            outline: 0;
+            background: none;
+            width: 60%;
+            caret-color:#001d3a;
+            line-height: 40px;
+        }
+
+        .searchbar > .search_input{
+            padding: 0 10px;
+            width: 80%;
+            caret-color:red;
+            transition: width 0.4s linear;
+        }
+
+        .search_icon{
+            height: 40px;
+            width: 40px;
+            float: right;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            background: #ffffff00;
+            border: #f0ffff00;
+        }
+
+    </style>
+
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,500" rel="stylesheet">
+    <link href="{% static 'style.css' %}" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+</head>
+
+<body>
+<div class="full-height">
+    <div class="section">
+        <header>
+            <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #001d3a;">
+                <div class="container">
+                    <a class="navbar-brand mb-5" href="{% url 'home' %}">
+                        <img src="{% static 'logo.png' %}" class="d-inline-block align-top" height=70 alt="logo">
+                    </a>
+                </div>
+            </nav>
+        </header>
+        <div style="width: 50%;">
+            <form class="form-inline my-2 my-lg-0" method="POST" action="{% url 'search' %}">
+                {% csrf_token %}
+                <div class="searchbar" style="width: 100%;">
+                    <input class="search_input" type="text" name="query" placeholder="Search . . .">
+                    <button class="search_icon" type="submit"><img src="{% static 'search.png' %}" height="30" alt="search"></button>
+                </div>
+            </form>
         </div>
-        <div class="container mt-3 text-center">
-            <a href="{% url 'all-documents' %}" class="btn mybutton btn-lg" role="button" aria-pressed="true">
-                View All Documents
-            </a>&nbsp;&nbsp;
-        </div>
+        <footer class="text-muted mt-5">
+            <div class="container">
+                <p class="text-center"  style="color: #b1bbc4;">Made with &#9829; by Jonathan</p>
+                <p class="text-center"><a href="https://github.com/JonathanFarinloye/bookateria" target="_blank">
+                    <img src="{% static 'github.png' %}" height="20" alt="Github-logo"></a> &nbsp;&nbsp;
+                    <a href="https://twitter.com/I_jonathan_" target="_blank">
+                        <img src="{% static 'twitter.png' %}" height="20" alt="twitter"></a></p>
+            </div>
+        </footer>
+
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
     </div>
-{% endblock %}
+
+</div>
+</body>
+</html>

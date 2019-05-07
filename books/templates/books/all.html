@@ -91,31 +91,62 @@
             {% endfor %}
         </table>
 
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                Page {{ books.number }} of {{ books.paginator.num_pages }}
+            </ul>
+            <ul class="pagination justify-content-center">
+                {% if books.has_previous %}
+                    <li class="page-item">
+                        <a class="link" href="?page=1" aria-label="First">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">First</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="link" href="?page={{ books.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&lsaquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                    {% if books.previous_page_number|add:-1 != 0 %}
+                    <li class="page-item"><a class="link" href="?page={{ books.previous_page_number|add:-1 }}">{{ books.previous_page_number|add:-1 }}</a></li>
+                    {% endif %}
+                    <li class="page-item"><a class="link" href="?page={{ books.previous_page_number }}" >{{ books.previous_page_number }}</a></li>
+                {% endif %}
+                <li class="page-item myactive"><a class="link" href="#">{{ books.number }}</a></li>
+                {% if books.has_next %}
+                    <li class="page-item"><a class="link" href="?page={{ books.next_page_number }}">{{ books.next_page_number }}</a></li>
+                    {% if books.next_page_number != books.paginator.num_pages %}
+                    <li class="page-item"><a class="link" href="?page={{ books.next_page_number|add:1 }}">{{ books.next_page_number|add:1 }}</a></li>
+                    {% endif %}
+                    <li class="page-item">
+                        <a class="link" href="?page={{ books.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">&rsaquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="link" href="?page={{ books.paginator.num_pages }}" aria-label="Last">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Last</span>
+                        </a>
+                    </li>
+                {% endif %}
 
-        <div class="pagination ">
-        <span class="step-links"><td class="text-center">{{ book.typology }}</td>
-        {% if books.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ books.previous_page_number }}">previous</a>
-        {% endif %}
+            </ul>
+        </nav>
 
-        <span class="current">
-            Page {{ books.number }} of {{ books.paginator.num_pages }}.
-        </span>
 
-        {% if books.has_next %}
-            <a href="?page={{ books.next_page_number }}">next</a>
-            <a href="?page={{ books.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
     {% else %}
         <div class="row">
-    <div class="container text-center pt-5">
-        <h4>Be the First to add a Document!😃🤗</h4>
-    </div>
-    </div>
+            <div class="container text-center pt-5">
+                <h4>Be the First to add a Document!😃🤗</h4>
+            </div>
+        </div>
     {% endif %}
     </span>
-    </div>
+</div>
 
 </div>
 

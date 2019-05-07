@@ -3,21 +3,21 @@
 <head>
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-137229526-1"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-137229526-1"></script>
 
-<script>
+    <script>
 
-  window.dataLayer = window.dataLayer || [];
+        window.dataLayer = window.dataLayer || [];
 
-  function gtag(){dataLayer.push(arguments);}
+        function gtag(){dataLayer.push(arguments);}
 
-  gtag('js', new Date());
+        gtag('js', new Date());
 
-  gtag('config', 'UA-137229526-1');
+        gtag('config', 'UA-137229526-1');
 
-</script>
+    </script>
     {% load staticfiles %}
-    
+
     <meta name="theme-color" content="#001D3A">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -40,7 +40,8 @@
         <div class="container">
             <a class="navbar-brand" href="{% url 'home' %}">
                 <img src="{% static 'logo.png' %}" class="d-inline-block align-top" height=30 alt="logo"> </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" ariProducta-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                    ariProducta-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -61,13 +62,6 @@
                         <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
                     {% endif %}
                 </div>
-                {% comment %}<div class="navbar-nav ml-auto">
-                    <form class="form-inline my-2 my-lg-0" method="POST" action="{% url 'search' %}">
-                        {% csrf_token %}
-                        <input class="form-control mr-sm-2" name="query" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn search-button my-2 my-sm-0" type="submit">Search</button>
-                    </form>
-                </div>{% endcomment %}
             </div>
         </div>
     </nav>
@@ -81,7 +75,10 @@
 <footer class="text-muted mt-5">
     <div class="container">
         <p class="text-center">Made with <span style="color: #111111;">&#9829;</span> by Jonathan</p>
-        <p class="text-center"><a href="https://github.com/JonathanFarinloye/bookateria" target="_blank"><img src="{% static 'github.png' %}" height="20" alt="Github-logo"></a> &nbsp;&nbsp;<a href="https://twitter.com/I_jonathan_" target="_blank"><img src="{% static 'twitter.png' %}" height="20" alt="twitter"></a></p>
+        <p class="text-center"><a href="https://github.com/JonathanFarinloye/bookateria" target="_blank">
+            <img src="{% static 'github.png' %}" height="20" alt="Github-logo"></a> &nbsp;&nbsp;
+            <a href="https://twitter.com/I_jonathan_" target="_blank">
+                <img src="{% static 'twitter.png' %}" height="20" alt="twitter"></a></p>
     </div>
 </footer>
 
