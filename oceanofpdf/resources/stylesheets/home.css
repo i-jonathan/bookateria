@@ -11,7 +11,7 @@ html, body {
     background: #001d3a;
 }
 .section {
-    height: calc(100% - 70px);
+    padding-top: 45px;
     justify-content: center;
     align-items: center;
     display: flex;
