@@ -12,7 +12,7 @@ html, body {
     background: #001d3a;
 }
 .section {
-    padding-top: 45px;
+    height: 80%;
     justify-content: center;
     align-items: center;
     display: flex;
