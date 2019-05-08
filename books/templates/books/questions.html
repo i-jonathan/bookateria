@@ -88,7 +88,8 @@
                 <tbody>
                 <tr>
                     <th scope="row" class="text-center"><img src="{% static 'images/fav.png' %}" width=20></th>
-                    <td onclick="window.location='{% url 'detail' book.slug %}';" style="cursor: pointer;">{{ book.title }} - {{ book.author }}</td>
+                    <td onclick="window.location='{% url 'detail' book.slug %}';" style="cursor: pointer;">
+                        {{ book.title }} - {{ book.author }}</td>
                     <td class="text-center">{{ book.uploader }}</td>
                     <td class="text-center">{{ book.downloads }}</td>
                 </tr>
@@ -157,8 +158,16 @@
 
 <footer class="text-muted mt-5">
     <div class="container">
-        <p class="text-center">Made with <span style="color: #111111;">&#9829;</span> by Jonathan</p>
-        <p class="text-center"><a href="https://github.com/JonathanFarinloye/bookateria" target="_blank"><img src="{% static 'images/github.png' %}" height="20" alt="Github-logo"></a> &nbsp;&nbsp;<a href="https://twitter.com/I_jonathan_" target="_blank"><img src="{% static 'images/twitter.png' %}" height="20" alt="twitter"></a></p>
+         <p class="text-center"  style="color: #475c71;">&lt;&#8725;&gt; with &#9829; by 👨‍💻</p>
+        <p class="text-center">
+            <a href="https://github.com/JonathanFarinloye/bookateria" target="_blank">
+                <img src="{% static 'images/github-dark.png' %}" height="20" alt="Github-logo">
+            </a>
+            &nbsp;&nbsp;
+            <a href="https://twitter.com/I_jonathan_" target="_blank">
+                <img src="{% static 'images/twitter-dark.png' %}" height="20" alt="twitter">
+            </a>
+        </p>
     </div>
 </footer>
 
