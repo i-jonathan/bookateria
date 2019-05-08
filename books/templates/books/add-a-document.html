@@ -25,7 +25,7 @@
         <form method="POST" enctype="multipart/form-data" action="{% url 'add-document' %}">
             {% csrf_token %}
             <div class="form-group">
-                <input name="title" type="text" class="form-control" placeholder="Book Title" required>
+                <input name="title" type="text" class="form-control" placeholder="Document Title" required>
             </div>
             <div class="form-group">
                 <input name="author" type="text" class="form-control" placeholder="Author" required>
