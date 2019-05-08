@@ -14,7 +14,7 @@
                     <form class="form-inline my-2 my-lg-0" method="POST" action="{% url 'search' %}">
                         {% csrf_token %}
                         <div class="searchbar" style="width: 100%;">
-                            <input class="search_input" type="text" name="query" placeholder="Type here to Search . . .">
+                            <input class="search_input" type="text" name="query" placeholder="Search...">
                             <button class="search_icon" type="submit"><img src="{% static 'images/search.png' %}" height="30" alt="search"></button>
                         </div>
                     </form>
@@ -94,7 +94,7 @@
                     <form class="form-inline my-2 my-lg-0" method="POST" action="{% url 'search' %}">
                         {% csrf_token %}
                         <div class="searchbar" style="width: 100%;">
-                            <input class="search_input" type="text" name="query" placeholder="Type here to Search . . .">
+                            <input class="search_input" type="text" name="query" placeholder="Search...">
                             <button class="search_icon" type="submit"><img src="{% static 'images/search.png' %}" height="30" alt="search"></button>
                         </div>
                     </form>
