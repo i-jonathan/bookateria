@@ -1,6 +1,7 @@
 html, body {
     height: 100vh;
     margin: 0;
+    background: #001d3a;
 }
 
 .full-height {
