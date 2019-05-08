@@ -36,12 +36,38 @@
 
 <body>
 <div class="full-height">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                    ariProducta-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav ml-auto">
+                    <a class="nav-item nav-link" href="{% url 'books_view' %}">Books</a>
+                    <a class="nav-item nav-link" href="{% url 'notes_view' %}">Lecture Notes</a>
+                    <a class="nav-item nav-link" href="{% url 'question_view' %}">Questions</a>
+                    {% if user.is_authenticated %}
+                        <a class="nav-item nav-link" href="{% url 'add-document' %}">Submit a Document</a>
+                        <a class="nav-item nav-link" href="javascript:{document.getElementById('logout').submit()}">Logout</a>
+                        <form id="logout" action="{% url 'logout' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden">
+                        </form>
+                    {% else %}
+                        <a class="nav-item nav-link" href="{% url 'signup' %}">Sign Up</a>
+                        <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
     <div class="section">
         <header>
-            <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #001d3a;">
+            <nav class="navbar navbar-expand-lg navbar-dark">
                 <div class="container">
                     <a class="navbar-brand mb-5" href="{% url 'home' %}">
-                        <img src="{% static 'images/logo.png' %}" class="d-inline-block align-top" height=70 alt="logo">
+                        <img src="{% static 'images/logo.png' %}" class="d-inline-block align-top .img-fluid mx-auto d-block" style="height: auto; max-width: 65%;" alt="logo">
                     </a>
                 </div>
             </nav>
@@ -56,29 +82,9 @@
             </form>
         </div>
         <ul class="nav mt-5 justify-content-center">
-            <li class="nav-item pr-5">
+            <li class="nav-item">
                 <a class="nav-link home-link active" href="{% url 'all-documents' %}" >All Documents</a>
             </li>
-            {% if user.is_authenticated %}
-                <li class="nav-item pr-5">
-                    <a class="nav-item nav-link home-link" href="{% url 'add-document' %}" >Submit a Document</a>
-                </li>
-                <li class="nav-item pr-5">
-                    <a class="nav-item nav-link home-link"
-                       href="javascript:{document.getElementById('logout').submit()}">Logout</a>
-                    <form id="logout" action="{% url 'logout' %}" method="POST">
-                        {% csrf_token %}
-                        <input type="hidden">
-                    </form>
-                </li>
-            {% else %}
-                <li class="nav-item pr-5">
-                    <a class="nav-link home-link active"  href="{% url 'signup' %}">Sign Up</a>
-                </li>
-                <li class="nav-item pr-5">
-                    <a class="nav-link home-link active"  href="{% url 'login' %}">Login</a>
-                </li>
-            {% endif %}
 
         </ul>
 

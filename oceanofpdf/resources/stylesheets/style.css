@@ -54,7 +54,7 @@ body{
 
 .searchbar > .search_input{
     padding: 0 10px;
-    width: 80%;
+    width: 60%;
     caret-color:red;
     transition: width 0.4s linear;
 }
