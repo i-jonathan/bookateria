@@ -82,11 +82,14 @@ def add(request):
                         'classification': Type.objects.all()
                     }
                     return render(request, 'books/add-a-document.html', {'dict': message})
-            if request.FILES['pdf'].name.endswith('.pdf') or request.FILES['pdf'].name.endswith('.epub'):
+
+            name = request.FILES['pdf'].name
+            if name.endswith('.pdf') or name.endswith('.epub') or name.endswith('.doc') \
+                    or name.endswith('.docx') or name.endswith('.ppt'):
                 book.pdf = request.FILES['pdf']
             else:
                 message = {
-                    'error_file': 'Please Upload a supported book format. EPUB or PDF',
+                    'error_file': 'Supported formats are PDF, EPUB, PPT, DOC, DOCX',
                     'classification': Type.objects.all()
                 }
                 return render(request, 'books/add-a-document.html', {'dict': message})
@@ -101,7 +104,7 @@ def add(request):
             book.save()
             old_path = book.pdf.path
             ext = book.pdf.name.split('.')
-            book.pdf.name = 'file/' + book.title.replace(' ', '-') + '.' + ext[1]
+            book.pdf.name = 'file/' + book.title.replace(' ', '-') + '-bookateria.net.' + ext[1]
             new_path = settings.MEDIA_ROOT + book.pdf.name
             os.rename(old_path, new_path)
             book.save()

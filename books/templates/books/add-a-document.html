@@ -25,25 +25,14 @@
         <form method="POST" enctype="multipart/form-data" action="{% url 'add-document' %}">
             {% csrf_token %}
             <div class="form-group">
-                <input name="title" type="text" class="form-control" placeholder="Document Title" required>
+                <input name="title" type="text" id="add_title" class="form-control" placeholder="Document Title" required>
             </div>
             <div class="form-group">
-                <input name="author" type="text" class="form-control" placeholder="Author" required>
+                <input name="author" id="add_author" type="text" class="form-control" placeholder="Author" required>
             </div>
-            {% comment %}div class="form-group">
-                <label for="fac">Select one or more Faculties</label>
-                <select id="fac" class="form-control" name="faculty" aria-describedby="fac-help" required multiple>
-                    {% for item in dict.faculties %}
-                        <option value={{ item.name }}>{{ item.name }}</option>
-                    {% endfor %}
-                </select>
-                <small id="fac-help" class="form-text text-muted">
-                    Use Ctrl + Click to select Multiple Items
-                </small>
-            </div>{% endcomment %}
             <div class="form-group">
                 <label for="cat">Select Category</label>
-                <select id="cat" class="form-control" name="category" required>
+                <select id="add_cat" class="form-control" name="category" required>
                         <option style="display: none" disabled selected value> -- select an option --</option>
                     {% for item in dict.classification %}
                         <option value={{ item.name }}>{{ item.name }}</option>
@@ -51,7 +40,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <textarea class="form-control" rows="3" placeholder="Book Description" name="description" required></textarea>
+                <textarea class="form-control" id="add_description" rows="3" placeholder="Book Description" name="description" required></textarea>
             </div>
 
             <div class="custom-file mb-3">
@@ -63,10 +52,10 @@
             </div>
             <div class="custom-file mt-3 mb-3">
                 <h6>Upload Book</h6>
-                <input type="file" name="pdf" accept=".pdf, .epub" required>
+                <input type="file" id="add_file" name="pdf" accept=".pdf, .epub, .ppt, .doc, .docx" required>
             </div>
             <div class="mt-3">
-                <input type="submit" class="btn mybutton mb-2" value="Submit Book">
+                <input type="submit" id="add_submit" class="btn mybutton mb-2" value="Submit Book">
             </div>
         </form>
     </div>
