@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Books, Type
-from django.conf import settings
 from django.core.paginator import Paginator
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
@@ -101,12 +100,9 @@ def add(request):
             category = request.POST.get('category')
             typology = Type.objects.get(name__icontains=category)
             book.typology = typology
-            book.save()
-            old_path = book.pdf.path
-            ext = book.pdf.name.split('.')
-            book.pdf.name = 'file/' + book.title.replace(' ', '-') + '-bookateria.net.' + ext[1]
-            new_path = settings.MEDIA_ROOT + book.pdf.name
-            os.rename(old_path, new_path)
+            # ext = book.pdf.name.split('.')
+            # new_name = book.title.replace(' ', '-') + '-bookateria.net.' + ext[1]
+            # book.pdf.path = os.system('mv ' + book.pdf.path + ' ' + new_name)
             book.save()
             return render(request, 'books/add-a-document.html', {'word': 'Upload Successful. Upload another 😉'})
 
