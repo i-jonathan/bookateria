@@ -1,10 +1,18 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
+import os
 # Create your models here.
 
 
 class Books(models.Model):
+
+    def path_and_rename(self, filename):
+        upload_to = 'file/'
+        name = self.title + ' ' + self.author + '-bookateria.net.'
+        new_name = name.replace(' ', '-') + filename.split('.')[-1]
+        return os.path.join(upload_to, new_name)
+
     title = models.CharField(max_length=255)
     author = models.CharField(max_length=255)
     description = models.TextField()
@@ -12,15 +20,10 @@ class Books(models.Model):
     upload_date = models.DateTimeField()
     size = models.FloatField(null=True)
     image = models.ImageField(upload_to='images/', blank=True)
-    pdf = models.FileField(upload_to='file/')
+    pdf = models.FileField(upload_to=path_and_rename)
     uploader = models.ForeignKey(User, on_delete=models.PROTECT)
     slug = models.SlugField(max_length=255)
     typology = models.ForeignKey('Type', on_delete=models.PROTECT, null=True)
-
-    @property
-    def photo_url(self):
-        if self.image and hasattr(self.image, 'url'):
-            return self.image.url
 
     class Meta:
         ordering = ('title', )

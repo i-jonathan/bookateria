@@ -83,8 +83,8 @@ def add(request):
                     return render(request, 'books/add-a-document.html', {'dict': message})
 
             name = request.FILES['pdf'].name
-            if name.endswith('.pdf') or name.endswith('.epub') or name.endswith('.doc') \
-                    or name.endswith('.docx') or name.endswith('.ppt'):
+            formats = ['pdf', 'epub', 'docx', 'doc', 'ppt']
+            if name.rsplit('.')[-1] in formats:
                 book.pdf = request.FILES['pdf']
             else:
                 message = {
