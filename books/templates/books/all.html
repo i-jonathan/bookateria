@@ -45,13 +45,13 @@
                         <a class="nav-item nav-link" href="{% url 'add-document' %}">Submit a Document</a>
                         <a class="nav-item nav-link"
                            href="javascript:{document.getElementById('logout').submit()}">Logout</a>
-                        <form id="logout" action="{% url 'logout' %}" method="POST">
+                        <form id="logout" action="{% url 'logout' %}?next={{ request.path }}" method="POST">
                             {% csrf_token %}
-                            <input type="hidden">
+                            <input type="hidden" name="next" value="{{ request.GET.next }}"/>
                         </form>
                     {% else %}
                         <a class="nav-item nav-link" href="{% url 'signup' %}">Sign Up</a>
-                        <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                        <a class="nav-item nav-link" href="{% url 'login' %}?next={{ request.path }}">Login</a>
                     {% endif %}
                 </div>
             </div>
@@ -87,7 +87,9 @@
                 <tbody>
                 <tr>
                     <th scope="row" class="text-center"><img src="{% static 'images/fav.png' %}" width=20></th>
-                    <td onclick="window.location='{% url 'detail' book.slug %}';" style="cursor: pointer;">{{ book.title }} - {{ book.author }}</td>
+                    <td>
+                        <a style="cursor: pointer; color: #001d3a; text-decoration: none;" href="{% url 'detail' book.slug %}">{{ book.title }} - {{ book.author }}</a>
+                    </td>
                     <td class="text-center">{{ book.uploader }}</td>
                     <td class="text-center">{{ book.downloads }}</td>
                 </tr>
@@ -156,7 +158,7 @@
 
 <footer class="text-muted mt-5">
     <div class="container">
-         <p class="text-center"  style="color: #475c71;">&lt;&#8725;&gt; with &#9829; by 👨‍💻</p>
+         <p class="text-center"  style="color: #475c71;">&lt;&#8725;&gt; with &#9829; by 👨‍Jonathan</p>
         <p class="text-center">
             <a href="https://github.com/JonathanFarinloye/bookateria" target="_blank">
                 <img src="{% static 'images/github-dark.png' %}" height="20" alt="Github-logo"></a>

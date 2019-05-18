@@ -11,7 +11,8 @@ def login(request):
             user = auth.authenticate(username=request.POST['username'], password=request.POST['password'])
             if user is not None:
                 auth.login(request, user)
-                return redirect('home')
+                next_url = request.POST.get('next')
+                return redirect(next_url, 'home')
             else:
                 return render(request, 'accounts/login.html', {'error': 'Username or password is incorrect'},
                               {'Forgot': 'Forgot Your Password?'})
@@ -20,7 +21,7 @@ def login(request):
     else:
         return render(request, 'accounts/login.html')
 
-# Create your views here.
+
 def signup(request):
     if request.method == 'POST':
         passlen = len(request.POST['passwords'])
@@ -52,5 +53,9 @@ def signup(request):
 def logout(request):
     if request.method == 'POST':
         auth.logout(request)
-        return redirect('home' '')
+        next_url = request.GET.get('next')
+        if next_url:
+            return redirect(next_url)
+        else:
+            return redirect('home')
 
