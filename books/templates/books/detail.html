@@ -11,6 +11,29 @@
         </div>
         <div class="col-md-6">
             <h3 class="pt-3">{{ book.title }}</h3>
+            &nbsp;&nbsp;<img src="{% static 'images/tag.png' %}" height="25">
+            {% for i in book.tags.all %}
+                <small>{{ i }},</small>
+            {% endfor %}
+            {% if user.is_authenticated %}
+            <a onclick="TagEditor()" role="button" aria-pressed="true">
+                &nbsp;&nbsp;<img src="{% static 'images/add-tags.png' %}" id="tag-img" height="25"></a>
+            {% endif %}
+            <br>
+            <form id="tag-edit" action="{% url 'detail' book.slug %}" style="display: none" method="POST">
+                {% csrf_token %}
+                <div class="form-group mt-3">
+                    <input name="tag" id="add_tag" type="text" class="form-control" placeholder="Add New Tags" aria-describedby="tag-msg" required>
+                    <small id="tag-msg" class="form-text text-muted">
+                        Could include a course title, code, subject e.t.c
+                        <br>
+                        Separate multiple tags with a Comma(,)
+                    </small>
+                </div>
+                <div class="mt-3">
+                <input type="submit" id="add_submit" class="btn mybutton mb-2" value="Add New Tags">
+            </div>
+            </form>
             <br>
             {{ book.description }}
         </div>
@@ -32,4 +55,21 @@
         {% csrf_token %}
         <input type="hidden">
     </form>
+    <script>
+        function TagEditor() {
+            let x = document.getElementById("tag-edit");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+            let y = document.getElementById("tag-img");
+            if (y.src === "{% static 'images/add-tags.png' %}"){
+                y.src = "{% static 'images/close-tags.png' %}"
+            }
+            else {
+                y.src = "{% static 'images/add-tags.png' %}"
+            }
+        }
+    </script>
 {% endblock %}

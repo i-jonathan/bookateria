@@ -4,7 +4,7 @@ from django.core.paginator import Paginator
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-import os
+from .models import Tag
 
 
 # Create your views here.
@@ -27,7 +27,7 @@ def view_all(request):
 def books_view(request):
     # Same function as the view_all function, but restricted to Books
     book_list = Books.objects.filter(typology__name__icontains='Book').order_by('-upload_date')
-    paginator = Paginator(book_list, 20)  # Show 20 books per page TODO improve pagination
+    paginator = Paginator(book_list, 20)
     page = request.GET.get('page')
     book = paginator.get_page(page)
     return render(request, 'books/books.html', {'books': book})
@@ -36,7 +36,7 @@ def books_view(request):
 def notes_view(request):
     # Same function as the view_all function, but restricted to Notes
     book_list = Books.objects.filter(typology__name__icontains='Note').order_by('-upload_date')
-    paginator = Paginator(book_list, 20)  # Show 20 books per page TODO improve pagination
+    paginator = Paginator(book_list, 20)
     page = request.GET.get('page')
     book = paginator.get_page(page)
     return render(request, 'books/notes.html', {'books': book})
@@ -45,7 +45,7 @@ def notes_view(request):
 def question_view(request):
     # Same function as the view_all function, but restricted to Questions
     book_list = Books.objects.filter(typology__name__icontains='Question').order_by('-upload_date')
-    paginator = Paginator(book_list, 20)  # Show 20 books per page TODO improve pagination
+    paginator = Paginator(book_list, 20)
     page = request.GET.get('page')
     book = paginator.get_page(page)
     return render(request, 'books/questions.html', {'books': book})
@@ -81,7 +81,7 @@ def add(request):
                         'classification': Type.objects.all()
                     }
                     return render(request, 'books/add-a-document.html', {'dict': message})
-
+            
             name = request.FILES['pdf'].name
             formats = ['pdf', 'epub', 'docx', 'doc', 'ppt']
             if name.rsplit('.')[-1] in formats:
@@ -104,8 +104,22 @@ def add(request):
             # new_name = book.title.replace(' ', '-') + '-bookateria.net.' + ext[1]
             # book.pdf.path = os.system('mv ' + book.pdf.path + ' ' + new_name)
             book.save()
+            all_tags = request.POST['tag'].split(',')
+            new_list = []
+            for i in all_tags:
+                new_list.append(i.strip())
+            
+            for x in new_list:
+                if Tag.objects.filter(name__iexact=x).exists():
+                    tag = Tag.objects.get(name__iexact=x)
+                    book.tags.add(tag)
+                else:
+                    Tag.objects.create(name=x)
+                    tag = Tag.objects.get(name__iexact=x)
+                    book.tags.add(tag)
+            
             return render(request, 'books/add-a-document.html', {'word': 'Upload Successful. Upload another 😉'})
-
+    
     else:
         message = {
             'classification': Type.objects.all()
@@ -114,8 +128,25 @@ def add(request):
 
 
 def detail(request, slug):
-    book = get_object_or_404(Books, slug=slug)
-    return render(request, 'books/detail.html', {'book': book})
+    if request.method == 'POST':
+        book = get_object_or_404(Books, slug=slug)
+        all_tags = request.POST['tag'].split(',')
+        new_list = []
+        for i in all_tags:
+            new_list.append(i.strip())
+
+        for x in new_list:
+            if Tag.objects.filter(name__iexact=x).exists():
+                tag = Tag.objects.get(name__iexact=x)
+                book.tags.add(tag)
+            else:
+                Tag.objects.create(name=x)
+                tag = Tag.objects.get(name__iexact=x)
+                book.tags.add(tag)
+        return redirect('detail', slug)
+    else:
+        book = get_object_or_404(Books, slug=slug)
+        return render(request, 'books/detail.html', {'book': book})
 
 
 def download(request, slug):
@@ -132,7 +163,8 @@ def download(request, slug):
 def search(request):
     if request.method == 'POST':
         book_list = Books.objects.all().filter(title__icontains=request.POST['query']).order_by('downloads')
-        paginator = Paginator(book_list, 20)  # Show 20 books per page TODO improve pagination
+        paginator = Paginator(book_list, 20)
         page = request.GET.get('page')
         book = paginator.get_page(page)
         return render(request, 'books/search-result.html', {'books': book})
+

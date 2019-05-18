@@ -23,13 +23,14 @@ class Books(models.Model):
     pdf = models.FileField(upload_to=path_and_rename)
     uploader = models.ForeignKey(User, on_delete=models.PROTECT)
     slug = models.SlugField(max_length=255)
+    tags = models.ManyToManyField('Tag')
     typology = models.ForeignKey('Type', on_delete=models.PROTECT, null=True)
 
     class Meta:
         ordering = ('title', )
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title + self.author)
+        self.slug = slugify(self.title + '-' + self.author)
         if len(self.slug) >= 100:
             self.slug = self.slug[:100]
         return super(Books, self).save(*args, **kwargs)
@@ -67,4 +68,11 @@ class Type(models.Model):
         return self.name
 
 
+class Tag(models.Model):
+    name = models.CharField(max_length=40)
 
+    class Meta:
+        ordering = ('name', )
+
+    def __str__(self):
+        return self.name

@@ -4,24 +4,24 @@
     <div class="pt-5">
         <h2 class="text-center mb-3" >Add a Document Here</h2>
 
-            {% if dict.error_exixts %}
-                <div class="p-3 mb-2 bg-danger text-white">
-                    {{ dict.error_exixts }}
-                </div>
-                <br><br>
-            {% elif dict.error_image %}
-                <div class="p-3 mb-2 bg-danger text-white">
-                    {{ dict.error_image }}
-                </div>
-            {% elif dict.error_file %}
-                <div class="p-3 mb-2 bg-danger text-white">
-                    {{ dict.error_file }}
-                </div>
-            {% elif word %}
-                <div class="p-3 mb-2 bg-success text-white">
-                    {{ word }}
-                </div>
-            {% endif %}
+        {% if dict.error_exixts %}
+            <div class="p-3 mb-2 bg-danger text-white">
+                {{ dict.error_exixts }}
+            </div>
+            <br><br>
+        {% elif dict.error_image %}
+            <div class="p-3 mb-2 bg-danger text-white">
+                {{ dict.error_image }}
+            </div>
+        {% elif dict.error_file %}
+            <div class="p-3 mb-2 bg-danger text-white">
+                {{ dict.error_file }}
+            </div>
+        {% elif word %}
+            <div class="p-3 mb-2 bg-success text-white">
+                {{ word }}
+            </div>
+        {% endif %}
         <form method="POST" enctype="multipart/form-data" action="{% url 'add-document' %}">
             {% csrf_token %}
             <div class="form-group">
@@ -33,11 +33,19 @@
             <div class="form-group">
                 <label for="cat">Select Category</label>
                 <select id="add_cat" class="form-control" name="category" required>
-                        <option style="display: none" disabled selected value> -- select an option --</option>
+                    <option style="display: none" disabled selected value> -- select an option --</option>
                     {% for item in dict.classification %}
                         <option value={{ item.name }}>{{ item.name }}</option>
                     {% endfor %}
                 </select>
+            </div>
+            <div class="form-group">
+                <input name="tag" id="add_tag" type="text" class="form-control" placeholder="Input Tags" aria-describedby="tag-msg" required>
+                <small id="tag-msg" class="form-text text-muted">
+                    Could include a course title, code, subject e.t.c
+                    <br>
+                    Separate multiple tags with a Comma(,)
+                </small>
             </div>
             <div class="form-group">
                 <textarea class="form-control" id="add_description" rows="3" placeholder="Book Description" name="description" required></textarea>
@@ -58,5 +66,6 @@
                 <input type="submit" id="add_submit" class="btn mybutton mb-2" value="Submit Book">
             </div>
         </form>
+
     </div>
 {% endblock %}
