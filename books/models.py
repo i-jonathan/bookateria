@@ -23,7 +23,7 @@ class Books(models.Model):
     pdf = models.FileField(upload_to=path_and_rename)
     uploader = models.ForeignKey(User, on_delete=models.PROTECT)
     slug = models.SlugField(max_length=255)
-    tags = models.ManyToManyField('Tag')
+    tags = models.ManyToManyField('Tag', blank=True)
     typology = models.ForeignKey('Type', on_delete=models.PROTECT, null=True)
 
     class Meta:
