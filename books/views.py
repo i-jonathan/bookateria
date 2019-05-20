@@ -162,9 +162,15 @@ def download(request, slug):
 
 def search(request):
     if request.method == 'POST':
-        book_list = Books.objects.all().filter(title__icontains=request.POST['query']).order_by('downloads')
+        books = Books.objects.all().filter(title__icontains=request.POST['query']).order_by('downloads')
+        authors = Books.objects.all().filter(author__icontains=request.POST['query']).order_by('downloads')
+        book_list = books | authors
         paginator = Paginator(book_list, 20)
         page = request.GET.get('page')
         book = paginator.get_page(page)
         return render(request, 'books/search-result.html', {'books': book})
 
+
+def sitemap(request):
+    tag_list = Tag.objects.all().order_by('name')
+    return render(request, 'books/all-tags.html', {'tags': tag_list})
