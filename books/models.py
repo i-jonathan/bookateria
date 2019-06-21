@@ -52,7 +52,7 @@ class Books(models.Model):
         return self.description[:100]
 
     def date(self):
-        return self.upload_date.strftime('%b %e %Y')
+        return self.upload_date.strftime('%b %d %Y')
 
     def __str__(self):
         return self.title
