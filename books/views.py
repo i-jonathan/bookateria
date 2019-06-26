@@ -100,9 +100,6 @@ def add(request):
             category = request.POST.get('category')
             typology = Type.objects.get(name__icontains=category)
             book.typology = typology
-            # ext = book.pdf.name.split('.')
-            # new_name = book.title.replace(' ', '-') + '-bookateria.net.' + ext[1]
-            # book.pdf.path = os.system('mv ' + book.pdf.path + ' ' + new_name)
             book.save()
             all_tags = request.POST['tag'].split(',')
             new_list = []
@@ -164,7 +161,8 @@ def search(request):
     if request.method == 'POST':
         books = Books.objects.all().filter(title__icontains=request.POST['query']).order_by('downloads')
         authors = Books.objects.all().filter(author__icontains=request.POST['query']).order_by('downloads')
-        book_list = books | authors
+        tags = Books.objects.all().filter(tags__name__icontains=request.POST['query']).order_by('downloads')
+        book_list = books | authors | tags
         paginator = Paginator(book_list, 20)
         page = request.GET.get('page')
         book = paginator.get_page(page)
