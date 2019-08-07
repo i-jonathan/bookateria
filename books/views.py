@@ -165,7 +165,7 @@ def search(request):
     books = Books.objects.all().filter(title__icontains=query).order_by('-downloads')
     authors = Books.objects.all().filter(author__icontains=query).order_by('-downloads')
     tags = Books.objects.all().filter(tags__name__icontains=query).order_by('-downloads')
-    book_list = books | authors | tags
+    book_list = (books | authors | tags).distinct()
     paginator = Paginator(book_list, 20)
     page = request.GET.get('page')
     book = paginator.get_page(page)
