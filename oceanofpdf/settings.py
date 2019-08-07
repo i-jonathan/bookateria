@@ -26,7 +26,6 @@ DEBUG = config('DEBUG') == 'True'
 ALLOWED_HOSTS = [
     'www.bookateria.net',
     'bookateria.net',
-    '0.0.0.0',
     '127.0.0.1'
 ]
 
