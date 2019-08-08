@@ -35,7 +35,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='books',
             name='pdf',
-            field=models.FileField(upload_to=books.models.Books.path_and_rename),
+            field=models.FileField(upload_to=books.models.Document.path_and_rename),
         ),
         migrations.AlterField(
             model_name='books',

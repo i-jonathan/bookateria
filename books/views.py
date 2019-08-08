@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Books, Type
+from .models import Document, Type
 from django.core.paginator import Paginator
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
@@ -15,7 +15,7 @@ def home(request):
 
 def view_all(request):
     # Displays all available documents, regardless of their type, ordered in reverse by upload date
-    book_list = Books.objects.all().order_by('-upload_date')
+    book_list = Document.objects.all().order_by('-upload_date')
     # Takes all 'document' objects in and groups them in 20's per page
     # TODO improve pagination
     paginator = Paginator(book_list, 20)
@@ -25,8 +25,8 @@ def view_all(request):
 
 
 def books_view(request):
-    # Same function as the view_all function, but restricted to Books
-    book_list = Books.objects.filter(typology__name__icontains='Book').order_by('-upload_date')
+    # Same function as the view_all function, but restricted to Document
+    book_list = Document.objects.filter(typology__name__icontains='Book').order_by('-upload_date')
     paginator = Paginator(book_list, 20)
     page = request.GET.get('page')
     book = paginator.get_page(page)
@@ -35,7 +35,7 @@ def books_view(request):
 
 def notes_view(request):
     # Same function as the view_all function, but restricted to Notes
-    book_list = Books.objects.filter(typology__name__icontains='Note').order_by('-upload_date')
+    book_list = Document.objects.filter(typology__name__icontains='Note').order_by('-upload_date')
     paginator = Paginator(book_list, 20)
     page = request.GET.get('page')
     book = paginator.get_page(page)
@@ -44,7 +44,7 @@ def notes_view(request):
 
 def question_view(request):
     # Same function as the view_all function, but restricted to Questions
-    book_list = Books.objects.filter(typology__name__icontains='Question').order_by('-upload_date')
+    book_list = Document.objects.filter(typology__name__icontains='Question').order_by('-upload_date')
     paginator = Paginator(book_list, 20)
     page = request.GET.get('page')
     book = paginator.get_page(page)
@@ -57,15 +57,15 @@ def add(request):
     # successful. Checks if any book exists with the same title and author, if yes, return a 'document already
     # exists message
     if request.method == 'POST':
-        if Books.objects.filter(title__iexact=request.POST['title']) and \
-                Books.objects.filter(author__iexact=request.POST['author']):
+        if Document.objects.filter(title__iexact=request.POST['title']) and \
+                Document.objects.filter(author__iexact=request.POST['author']):
             message = {
                 'error_exists': 'Document already Exists',
                 'classification': Type.objects.all()
             }
             return render(request, 'books/add-a-document.html', {'dict': message})
         else:
-            book = Books()
+            book = Document()
             book.title = request.POST['title']
             book.author = request.POST['author']
             book.description = request.POST['description']
@@ -126,7 +126,7 @@ def add(request):
 
 def detail(request, slug):
     if request.method == 'POST':
-        book = get_object_or_404(Books, slug=slug)
+        book = get_object_or_404(Document, slug=slug)
         all_tags = request.POST['tag'].split(',')
         new_list = []
         for i in all_tags:
@@ -142,13 +142,13 @@ def detail(request, slug):
                 book.tags.add(tag)
         return redirect('detail', slug)
     else:
-        book = get_object_or_404(Books, slug=slug)
+        book = get_object_or_404(Document, slug=slug)
         return render(request, 'books/detail.html', {'book': book})
 
 
 def download(request, slug):
     if request.method == 'POST':
-        book = get_object_or_404(Books, slug=slug)
+        book = get_object_or_404(Document, slug=slug)
         user = User.objects.get(pk=book.uploader_id)
         user.profile.points += 2
         user.profile.save()
@@ -162,9 +162,9 @@ def search(request):
         query = request.POST['query']
     else:
         query = request.GET['query']
-    books = Books.objects.all().filter(title__icontains=query).order_by('-downloads')
-    authors = Books.objects.all().filter(author__icontains=query).order_by('-downloads')
-    tags = Books.objects.all().filter(tags__name__icontains=query).order_by('-downloads')
+    books = Document.objects.all().filter(title__icontains=query).order_by('-downloads')
+    authors = Document.objects.all().filter(author__icontains=query).order_by('-downloads')
+    tags = Document.objects.all().filter(tags__name__icontains=query).order_by('-downloads')
     book_list = (books | authors | tags).distinct()
     paginator = Paginator(book_list, 20)
     page = request.GET.get('page')

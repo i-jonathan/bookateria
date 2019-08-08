@@ -5,7 +5,7 @@ import os
 # Create your models here.
 
 
-class Books(models.Model):
+class Document(models.Model):
 
     def path_and_rename(self, filename):
         upload_to = 'file/'
