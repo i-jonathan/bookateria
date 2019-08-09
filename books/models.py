@@ -33,7 +33,7 @@ class Document(models.Model):
         self.slug = slugify(self.title + '-' + self.author)
         if len(self.slug) >= 100:
             self.slug = self.slug[:100]
-        return super(Books, self).save(*args, **kwargs)
+        return super(Document, self).save(*args, **kwargs)
 
     def megabytes(self):
         self.size = self.pdf.size

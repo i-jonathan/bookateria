@@ -10,3 +10,5 @@ db.sqlite3
 .idea
 /idea
 /media/
+*/migrations
+res
