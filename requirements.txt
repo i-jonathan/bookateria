@@ -9,3 +9,4 @@ pytz
 python-decouple
 dj_static
 boto3
+social_auth_app_django
