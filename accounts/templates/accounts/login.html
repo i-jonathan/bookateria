@@ -4,14 +4,14 @@
     <div class="row pt-5">
         <div class="col-3"></div>
         <div class="col-6">
-            <form method="POST" enctype="multipart/form-data" action="{% url 'login' %}?next={{ request.path }}">
+            <h2 class="text-center pb-3">Login</h2>
+            {% if error %}
+                {{ error }}
+                <br><br>
+            {% endif %}
+            <form id="login" method="POST" enctype="multipart/form-data" action="{% url 'login' %}?next={{ request.path }}">
                 {% csrf_token %}
                 <div class="form-group">
-                    <h2 class="text-center pb-3">Login</h2>
-                    {% if error %}
-                        {{ error }}
-                        <br><br>
-                    {% endif %}
                     <input name="username" type="text" class="form-control" id="login_username" placeholder="Username">
                 </div>
                 <div class="form-group">
@@ -21,21 +21,30 @@
                 <div class="mt-3 mb-3 form-group">
                     <input type="submit" id="submit_login" class="btn btn-block mybutton mb-2" value="Login">
                 </div>
+            </form>
+
+            <div id="social" class="text-center">
                 <div class="mt-3 d-none d-sm-none d-lg-block">
-                    <h4 class="text-center pt-3">or</h4>
+                    <h4 class="pt-3">or</h4>
                     <hr style="border-top-color: #001d3a; width: 80%">
-                    <a class="btn btn-block btn-social btn-twitter" href="{% url 'social:begin' 'google-oauth2' %}">
-                        <img src="{% static 'images/google-sign-in.png' %}" width="60%" alt="Sign in With Google">
+                    <a href="{% url 'social:begin' 'google-oauth2' %}">
+                        <img src="{% static 'images/google.png' %}" width="7%" alt="Sign in With Google">
+                    </a>
+                    <a href="{% url 'social:begin' 'twitter' %}">
+                        <img class="ml-3" src="{% static 'images/twitter-sign.png' %}" width=7%" alt="Sign in With Google">
                     </a>
                 </div>
                 <div class="mt-3 d-block d-lg-none">
                     <h4 class="text-center pt-3">or</h4>
                     <hr style="border-top-color: #001d3a; width: 80%">
-                    <a class="btn btn-block btn-social btn-twitter" href="{% url 'social:begin' 'google-oauth2' %}">
-                        <img src="{% static 'images/google-sign-in.png' %}" width="100%" alt="Sign in With Google">
+                    <a href="{% url 'social:begin' 'google-oauth2' %}">
+                        <img src="{% static 'images/google.png' %}" width="13%" alt="Sign in With Google">
+                    </a>
+                    <a href="{% url 'social:begin' 'twitter' %}">
+                        <img class="ml-3" src="{% static 'images/twitter-sign.png' %}" width="13%" alt="Sign in With Google">
                     </a>
                 </div>
-            </form>
+            </div>
         </div>
         <div class="col-3"></div>
     </div>
