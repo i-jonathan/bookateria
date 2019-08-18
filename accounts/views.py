@@ -27,7 +27,7 @@ def signup(request):
         passlen = len(request.POST['passwords'])
         if request.POST['usernames'] and request.POST['email'] and request.POST['passwords'] and request.POST['passwords1']:
             if request.POST['passwords'] == request.POST['passwords1']:
-                if passlen > 8:
+                if passlen >= 8:
                     try:
                         User.objects.get(username=request.POST['usernames']) or User.objects.get(email=request.POST['email'])
                         return render(request, 'accounts/signup.html', {'error': 'Username or Email already associated with an account'})
@@ -37,7 +37,7 @@ def signup(request):
                         user.first_name = request.POST['first_name']
                         user.last_name = request.POST['last_name']
                         user.save()
-                        auth.login(request, user)
+                        auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')
                         return redirect('home')
                 else:
                     return render(request, 'accounts/signup.html', {'error': 'Password must be over 8 characters!'})
