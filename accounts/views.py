@@ -24,10 +24,15 @@ def login(request):
 
 def signup(request):
     if request.method == 'POST':
-        passlen = len(request.POST['passwords'])
-        if request.POST['usernames'] and request.POST['email'] and request.POST['passwords'] and request.POST['passwords1']:
+        username = request.POST['usernames'].isspace()
+        password = request.POST['passwords'].isspace()
+        password1 = request.POST['passwords1'].isspace()
+        email = request.POST['email'].isspace()
+        first_name = request.POST['first_name'].isspace()
+        last_name = request.POST['last_name'].isspace()
+        if not (username or password or password1 or email or first_name or last_name):
             if request.POST['passwords'] == request.POST['passwords1']:
-                if passlen >= 8:
+                if len(request.POST['passwords']) >= 8:
                     try:
                         User.objects.get(username=request.POST['usernames']) or User.objects.get(email=request.POST['email'])
                         return render(request, 'accounts/signup.html', {'error': 'Username or Email already associated with an account'})
