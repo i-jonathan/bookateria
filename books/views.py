@@ -3,8 +3,9 @@ from .models import Document, Type
 from django.core.paginator import Paginator
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from .models import Tag
+User = get_user_model
 
 
 # Create your views here.
