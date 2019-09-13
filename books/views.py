@@ -102,20 +102,7 @@ def add(request):
             typology = Type.objects.get(name__icontains=category)
             book.typology = typology
             book.save()
-            all_tags = request.POST['tag'].split(',')
-            new_list = []
-            for i in all_tags:
-                new_list.append(i.strip())
-            
-            for x in new_list:
-                if Tag.objects.filter(name__iexact=x).exists():
-                    tag = Tag.objects.get(name__iexact=x)
-                    book.tags.add(tag)
-                else:
-                    Tag.objects.create(name=x)
-                    tag = Tag.objects.get(name__iexact=x)
-                    book.tags.add(tag)
-            
+            tag_profile(request, book)
             return render(request, 'books/add-a-document.html', {'word': 'Upload Successful. Upload another 😉'})
     
     else:
@@ -125,22 +112,26 @@ def add(request):
         return render(request, 'books/add-a-document.html', {'dict': message})
 
 
+def tag_profile(request, book):
+    all_tags = request.POST['tag'].split(',')
+    new_list = []
+    for i in all_tags:
+        new_list.append(i.strip())
+
+    for x in new_list:
+        if Tag.objects.filter(name__iexact=x).exists():
+            tag = Tag.objects.get(name__iexact=x)
+            book.tags.add(tag)
+        else:
+            Tag.objects.create(name=x)
+            tag = Tag.objects.get(name__iexact=x)
+            book.tags.add(tag)
+
+
 def detail(request, slug):
     if request.method == 'POST':
         book = get_object_or_404(Document, slug=slug)
-        all_tags = request.POST['tag'].split(',')
-        new_list = []
-        for i in all_tags:
-            new_list.append(i.strip())
-
-        for x in new_list:
-            if Tag.objects.filter(name__iexact=x).exists():
-                tag = Tag.objects.get(name__iexact=x)
-                book.tags.add(tag)
-            else:
-                Tag.objects.create(name=x)
-                tag = Tag.objects.get(name__iexact=x)
-                book.tags.add(tag)
+        tag_profile(request, book)
         return redirect('detail', slug)
     else:
         book = get_object_or_404(Document, slug=slug)
