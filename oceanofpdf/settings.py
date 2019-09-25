@@ -28,7 +28,6 @@ ALLOWED_HOSTS = [
     'bookateria.net',
     '127.0.0.1',
     'localhost',
-    '206.189.103.192'
 ]
 
 # Application definition
