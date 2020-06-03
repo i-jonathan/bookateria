@@ -16,7 +16,7 @@
         gtag('config', 'UA-137229526-1');
 
     </script>
-    {% load staticfiles %}
+    {% load static %}
 
     <meta name="theme-color" content="#001D3A">
     <meta charset="utf-8">
@@ -57,7 +57,7 @@
                         </form>
                     {% else %}
                         <a class="nav-item nav-link" href="{% url 'signup' %}">Sign Up</a>
-                        <a class="nav-item nav-link" href="{% url 'login' %}?next={{ request.path }}">Login</a>
+                        <a class="nav-item nav-link" href="{% url 'signin' %}?next={{ request.path }}">Login</a>
                     {% endif %}
                 </div>
             </div>

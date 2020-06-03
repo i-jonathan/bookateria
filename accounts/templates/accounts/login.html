@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load staticfiles %}
+{% load static %}
 {% block content %}
     <div class="row pt-5">
         <div class="col-3"></div>
@@ -9,7 +9,7 @@
                 {{ error }}
                 <br><br>
             {% endif %}
-            <form id="login" method="POST" enctype="multipart/form-data" action="{% url 'login' %}?next={{ request.path }}">
+            <form id="login" method="POST" enctype="multipart/form-data" action="{% url 'signin' %}?next={{ request.path }}">
                 {% csrf_token %}
                 <div class="form-group">
                     <input name="username" type="text" class="form-control" id="login_username" placeholder="Username">
